@@ -107,7 +107,7 @@ void draw(Graphics g) {
         Toolkit.getDefaultToolkit().sync();
     } else {
         // If we're not alive, then we end our game
-        endGame(g);
+    	FeverTime feverTime = new FeverTime(BOARDWIDTH, BOARDHEIGHT, g);
     }
 }
 
