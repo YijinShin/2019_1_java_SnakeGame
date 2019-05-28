@@ -32,6 +32,8 @@ private final static int TOTALPIXELS = (BOARDWIDTH * BOARDHEIGHT)
 
 // Check to see if the game is running
 private boolean inGame = true;
+private boolean fstPlayerWin = false;
+private boolean sndPlayerWin = false;
 
 // Timer used to record tick times
 private Timer timer;
@@ -250,6 +252,9 @@ void endGame(Graphics g) {
 
     // Create a message telling the player the game is over
     String message = "Game over";
+    String winMessage = "Wins!!";
+    String fstPlayer = "First Player";
+    String sndPlayer = "Second Player";
 
     // Create a new font instance
     Font font = new Font("Times New Roman", Font.BOLD, 25);
@@ -260,8 +265,26 @@ void endGame(Graphics g) {
     g.setFont(font);
 
     // Draw the message to the board
+    
+    //If fisrt player wins the game
+    if (fstPlayerWin == true && sndPlayerWin == false) {
     g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
             BOARDHEIGHT / 2);
+    g.drawString(fstPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+            BOARDHEIGHT / 2 + 40);
+    g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+            BOARDHEIGHT / 2 + 60);
+    }
+    
+    //if second player wins
+    if (fstPlayerWin == false && sndPlayerWin == true) {
+        g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+                BOARDHEIGHT / 2);
+        g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+                BOARDHEIGHT / 2 + 20);
+        g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+                BOARDHEIGHT / 2 + 40);
+        }
 
     System.out.println("Game Ended");
 
@@ -345,10 +368,21 @@ private class Keys extends KeyAdapter {
         if ((key == KeyEvent.VK_ENTER) && (inGame == false)) {
 
             inGame = true;
+            
+            //stop snakes' movement
             snake.setMovingDown(false);
             snake.setMovingRight(false);
             snake.setMovingLeft(false);
             snake.setMovingUp(false);
+            
+            snake2.setMovingDown(false);
+            snake2.setMovingRight(false);
+            snake2.setMovingLeft(false);
+            snake2.setMovingUp(false);
+            
+            //initialize the win-value
+            fstPlayerWin = false;
+            sndPlayerWin = false;
 
             initializeGame();
         }
