@@ -48,6 +48,7 @@ private Snake snake = new Snake();
 private Snake snake2 = new Snake();
 private Food food = new Food();
 private Poison poison = new Poison();
+// Collision 객체 (준현)
 private Collisions collision = new Collisions(snake, snake2, food, poison);
 
 public Board() {
@@ -185,9 +186,10 @@ void endGame(Graphics g) {
 public void actionPerformed(ActionEvent e) {
     if (inGame == true) {
 
-        collision.checkFoodCollisions();
-        collision.checkPoisonCollisions();
-        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT);
+        collision.checkFoodCollisions();	// 사과와 부딪치는 지(준현)
+        collision.checkPoisonCollisions();	// 썩은 사과와 부딪치는 지(준현)
+        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 뱀끼리 부딪치는(준현) 
+        // -> 바로 윗라인이 width, height 위치 구별해서 뱀 위치 조정하는데 이 기능 딴데로 가야할 듯 수정 필요함 (준현)
         // If the game has ended, then we can stop our timer
         if (!inGame) {
             timer.stop();

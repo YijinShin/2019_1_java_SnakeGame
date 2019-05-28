@@ -1,3 +1,5 @@
+
+
 public class Collisions {
     // Board에서 만든 객체들 저장할 private 변수
     private Snake snake1;
@@ -5,12 +7,13 @@ public class Collisions {
     private Food food;
     private Poison poison = new Poison();
 
+    // Constructor을 만들때 snake1, snake2, food, poison 객체 reference를 전달해준
     public Collisions(Snake snake1, Snake snake2,
-                        Food food, Poison posion) {
+                        Food food, Poison poison) {
         this.snake1 = snake1;
         this.snake2 = snake2;
         this.food = food;
-        this.poison = posion;
+        this.poison = poison;
     }
 
     // if our snake is in the close proximity of the food..
@@ -59,7 +62,7 @@ public class Collisions {
     }
 
     // Used to check collisions with snake's self and board edges
-    boolean checkCollisions(int width, int height) {
+    boolean checkCollisions(int width, int height) { //-> 여기서 width, height 위치 구별해서 뱀 위치 조정하는데 이 기능 딴데로 가야할 듯 수정 필요함 (준현)
 
         // If the snake hits other snake's joints..
         for (int i = snake2.getJoints(); i > 0; i--) {
