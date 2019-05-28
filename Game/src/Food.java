@@ -1,3 +1,4 @@
+package Game.src;
 public class Food {
 
 private Snake snake = new Snake();

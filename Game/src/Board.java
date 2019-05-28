@@ -1,3 +1,5 @@
+package Game.src;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -111,7 +113,9 @@ void draw(Graphics g) {
         Toolkit.getDefaultToolkit().sync();
     } else {
         // If we're not alive, then we end our game
-    	FeverTime feverTime = new FeverTime(BOARDWIDTH, BOARDHEIGHT, g);
+    	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, fstPlayerWin, sndPlayerWin);    	
+    	feverTime.MiddleFever();
+    	//게임이 끝나면 
     }
 }
 
@@ -137,48 +141,6 @@ void initializeGame() {
     // set the timer to record our game's speed / make the game move
     timer = new Timer(speed, this);
     timer.start();
-}
-
-void endGame(Graphics g) {
-
-    // Create a message telling the player the game is over
-    String message = "Game over";
-    String winMessage = "Wins!!";
-    String fstPlayer = "First Player";
-    String sndPlayer = "Second Player";
-
-    // Create a new font instance
-    Font font = new Font("Times New Roman", Font.BOLD, 25);
-    FontMetrics metrics = getFontMetrics(font);
-
-    // Set the color of the text to red, and set the font
-    g.setColor(Color.red);
-    g.setFont(font);
-
-    // Draw the message to the board
-
-    //If fisrt player wins the game
-    if (fstPlayerWin == true && sndPlayerWin == false) {
-    g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-            BOARDHEIGHT / 2);
-    g.drawString(fstPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-            BOARDHEIGHT / 2 + 40);
-    g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-            BOARDHEIGHT / 2 + 60);
-    }
-
-    //if second player wins
-    if (fstPlayerWin == false && sndPlayerWin == true) {
-        g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-                BOARDHEIGHT / 2);
-        g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-                BOARDHEIGHT / 2 + 20);
-        g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-                BOARDHEIGHT / 2 + 40);
-        }
-
-    System.out.println("Game Ended");
-
 }
 
 // Run constantly as long as we're in game.
@@ -283,6 +245,23 @@ private class Keys extends KeyAdapter {
             initializeGame();
         }
     }
+}
+
+private void printScore (Graphics g) {
+	int intScore_1P = 0;
+	int intScore_2P = 0;
+
+    Font font = new Font("Times New Roman", Font.BOLD, 14);
+    FontMetrics metrics = getFontMetrics(font);
+
+    // Set the color of the text to red, and set the font
+    g.setColor(Color.red);
+    g.setFont(font);
+
+    // Draw the message to the board
+    g.drawString(String.valueOf(intScore_1P), (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4, 50);
+    g.drawString(String.valueOf(intScore_2P), (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 50);
+
 }
 
 
