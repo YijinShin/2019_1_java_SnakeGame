@@ -1,4 +1,4 @@
- import java.awt.Color;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -48,6 +48,8 @@ private Snake snake = new Snake();
 private Snake snake2 = new Snake();
 private Food food = new Food();
 private Poison poison = new Poison();
+// Collision 객체 (준현)
+private Collisions collision = new Collisions(snake, snake2, food, poison);
 
 public Board() {
 
@@ -84,22 +86,22 @@ void draw(Graphics g) {
                 g.setColor(Color.darkGray);
                 g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
                         PIXELSIZE, PIXELSIZE);
-                // Body of snake              
+                // Body of snake
             } else {
                 g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
-                        PIXELSIZE, PIXELSIZE);          
+                        PIXELSIZE, PIXELSIZE);
             }
         }
         for (int i = 0; i < snake2.getJoints(); i++) {
             // Snake's head
             if (i == 0) {
                 g.setColor(Color.white);
-                
+
                 // Body of snake
                 g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i),
                         PIXELSIZE, PIXELSIZE);
             } else {
-               
+
                 g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i),
                         PIXELSIZE, PIXELSIZE);
             }
@@ -137,117 +139,6 @@ void initializeGame() {
     timer.start();
 }
 
-// if our snake is in the close proximity of the food..
-void checkFoodCollisions() {
-
-    if ((proximity(snake.getSnakeX(0), food.getFoodX(), 10))
-            && (proximity(snake.getSnakeY(0), food.getFoodY(), 10))) {
-
-        System.out.println("intersection");
-        // Add a 'joint' to our snake
-        snake.setJoints(snake.getJoints() + 1);
-        // Create new food
-        food.createFood();
-    }
-    if ((proximity(snake2.getSnakeX(0), food.getFoodX(), 10))
-            && (proximity(snake2.getSnakeY(0), food.getFoodY(), 10))) {
-
-        System.out.println("intersection");
-        // Add a 'joint' to our snake
-        snake2.setJoints(snake2.getJoints() + 1);
-        // Create new food
-        food.createFood();
-    }
-}
-
-//if our snake is in the close proximity of the poison..
-void checkPoisonCollisions() {
-
- if ((proximity(snake.getSnakeX(0), poison.getPoisonX(), 10))
-         && (proximity(snake.getSnakeY(0), poison.getPoisonY(), 10))) {
-
-     System.out.println("intersection");
-     // Add a 'joint' to our snake
-     snake.setJoints(snake.getJoints() - 1);
-     // Create new food
-     poison.createPoison();
- }
- else if ((proximity(snake2.getSnakeX(0), poison.getPoisonX(), 10))
-         && (proximity(snake2.getSnakeY(0), poison.getPoisonY(), 10))) {
-
-     System.out.println("intersection");
-     // Add a 'joint' to our snake
-     snake2.setJoints(snake2.getJoints() - 1);
-     // Create new food
-     poison.createPoison();
- }
-}
-
-// Used to check collisions with snake's self and board edges
-void checkCollisions() {
-
-    // If the snake hits other snake's joints..
-    for (int i = snake2.getJoints(); i > 0; i--) {
-
-       
-        if ((snake.getSnakeX(0) == snake2.getSnakeX(i) && (snake
-                        .getSnakeY(0) == snake2.getSnakeY(i))) || (snake
-                        		.getSnakeX(0) == snake2.getSnakeY(i) && (snake
-                                .getSnakeY(0) == snake2.getSnakeX(i)))) {
-            inGame = false; // then the game ends
-        }
-    }
-    
-    for (int i = snake.getJoints(); i > 0; i--) {
-
-        
-        if ((snake2.getSnakeX(0) == snake.getSnakeX(i) && (snake2
-                        .getSnakeY(0) == snake.getSnakeY(i))) || (snake2
-                        		.getSnakeX(0) == snake.getSnakeX(i) && (snake2
-                                .getSnakeY(0) == snake.getSnakeY(i)))) {
-            inGame = false; // then the game ends
-        }
-    }
-
-    // If the snake intersects with the board edges..
-    if (snake.getSnakeY(0) >= BOARDHEIGHT) {
-        snake.setSnakeY(0);
-    }
-
-    if (snake.getSnakeY(0) < 0) {
-        snake.setSnakeY(BOARDHEIGHT);
-    }
-
-    if (snake.getSnakeX(0) >= BOARDWIDTH) {
-        snake.setSnakeX(0);
-    }
-
-    if (snake.getSnakeX(0) < 0) {
-        snake.setSnakeX(BOARDWIDTH);
-    }
-    
-    if (snake2.getSnakeY(0) >= BOARDHEIGHT) {
-        snake2.setSnakeY(0);
-    }
-
-    if (snake2.getSnakeY(0) < 0) {
-        snake2.setSnakeY(BOARDHEIGHT);
-    }
-
-    if (snake2.getSnakeX(0) >= BOARDWIDTH) {
-        snake2.setSnakeX(0);
-    }
-
-    if (snake2.getSnakeX(0) < 0) {
-        snake2.setSnakeX(BOARDWIDTH);
-    }
-
-    // If the game has ended, then we can stop our timer
-    if (!inGame) {
-        timer.stop();
-    }
-}
-
 void endGame(Graphics g) {
 
     // Create a message telling the player the game is over
@@ -265,7 +156,7 @@ void endGame(Graphics g) {
     g.setFont(font);
 
     // Draw the message to the board
-    
+
     //If fisrt player wins the game
     if (fstPlayerWin == true && sndPlayerWin == false) {
     g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
@@ -275,7 +166,7 @@ void endGame(Graphics g) {
     g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
             BOARDHEIGHT / 2 + 60);
     }
-    
+
     //if second player wins
     if (fstPlayerWin == false && sndPlayerWin == true) {
         g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
@@ -295,14 +186,19 @@ void endGame(Graphics g) {
 public void actionPerformed(ActionEvent e) {
     if (inGame == true) {
 
-        checkFoodCollisions();
-        checkPoisonCollisions();
-        checkCollisions();
+        collision.checkFoodCollisions();	// 사과와 부딪치는 지(준현)
+        collision.checkPoisonCollisions();	// 썩은 사과와 부딪치는 지(준현)
+        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 뱀끼리 부딪치는(준현) 
+        // -> 바로 윗라인이 width, height 위치 구별해서 뱀 위치 조정하는데 이 기능 딴데로 가야할 듯 수정 필요함 (준현)
+        // If the game has ended, then we can stop our timer
+        if (!inGame) {
+            timer.stop();
+        }
         snake.move();
         snake2.move();
 
         System.out.println(snake.getSnakeX(0) + " " + snake.getSnakeY(0) + " " + snake2.getSnakeX(0)
-                + " " + snake2.getSnakeY(0) + " " + food.getFoodX() + ", " + food.getFoodY() 
+                + " " + snake2.getSnakeY(0) + " " + food.getFoodX() + ", " + food.getFoodY()
                 + " " + poison.getPoisonX() +", " + poison.getPoisonY());
     }
     // Repaint or 'render' our screen
@@ -340,7 +236,7 @@ private class Keys extends KeyAdapter {
             snake.setMovingRight(false);
             snake.setMovingLeft(false);
         }
-        
+
         if ((key2 == KeyEvent.VK_A) && (!snake2.isMovingRight())) {
             snake2.setMovingLeft(true);
             snake2.setMovingUp(false);
@@ -368,18 +264,18 @@ private class Keys extends KeyAdapter {
         if ((key == KeyEvent.VK_ENTER) && (inGame == false)) {
 
             inGame = true;
-            
+
             //stop snakes' movement
             snake.setMovingDown(false);
             snake.setMovingRight(false);
             snake.setMovingLeft(false);
             snake.setMovingUp(false);
-            
+
             snake2.setMovingDown(false);
             snake2.setMovingRight(false);
             snake2.setMovingLeft(false);
             snake2.setMovingUp(false);
-            
+
             //initialize the win-value
             fstPlayerWin = false;
             sndPlayerWin = false;
@@ -389,9 +285,6 @@ private class Keys extends KeyAdapter {
     }
 }
 
-private boolean proximity(int a, int b, int closeness) {
-    return Math.abs((long) a - b) <= closeness;
-}
 
 public static int getAllDots() {
     return TOTALPIXELS;
