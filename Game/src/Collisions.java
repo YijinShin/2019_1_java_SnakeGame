@@ -7,6 +7,9 @@ public class Collisions {
     private Snake snake2;
     private Food food;
     private Poison poison = new Poison();
+    private boolean fstPlayerWin = false;
+    private boolean sndPlayerWin = false;
+    
 
     // Constructor을 만들때 snake1, snake2, food, poison 객체 reference를 전달해준
     public Collisions(Snake snake1, Snake snake2,
@@ -73,6 +76,7 @@ public class Collisions {
                             .getSnakeY(0) == snake2.getSnakeY(i))) || (snake1
                             		.getSnakeX(0) == snake2.getSnakeY(i) && (snake1
                                     .getSnakeY(0) == snake2.getSnakeX(i)))) {
+            	sndPlayerWin = true;
                 return false; // then the game ends
             }
         }
@@ -84,7 +88,8 @@ public class Collisions {
                             .getSnakeY(0) == snake1.getSnakeY(i))) || (snake2
                             		.getSnakeX(0) == snake1.getSnakeX(i) && (snake2
                                     .getSnakeY(0) == snake1.getSnakeY(i)))) {
-                return false; // then the game ends
+            	fstPlayerWin = true;
+            	return false; // then the game ends
             }
         }
 
@@ -127,4 +132,12 @@ public class Collisions {
     private boolean proximity(int a, int b, int closeness) {
         return Math.abs((long) a - b) <= closeness;
     }
+    
+    public boolean getFstPlayerWin() {
+    	return fstPlayerWin;
+    }
+    public boolean getSndPlayerWin() {
+    	return sndPlayerWin;
+    }
+
 }

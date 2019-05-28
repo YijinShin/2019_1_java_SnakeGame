@@ -113,9 +113,9 @@ void draw(Graphics g) {
         Toolkit.getDefaultToolkit().sync();
     } else {
         // If we're not alive, then we end our game
-    	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, fstPlayerWin, sndPlayerWin);    	
-    	feverTime.MiddleFever();
-    	//게임이 끝나면 
+    	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin(), PIXELSIZE);    	
+    	feverTime.EndFever();
+    	//게임이 끝나면 EndFever을 실행
     }
 }
 

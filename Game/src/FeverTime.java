@@ -11,9 +11,10 @@ public class FeverTime extends JPanel{
 	Graphics g;
 	int BOARDWIDTH, BOARDHEIGHT;
 	boolean fstPlayerWin, sndPlayerWin;
-		
+	int PIXELSIZE;
+	
 	// 피버타임을 구할때는 그래픽, 보드 크기 등등이 필요하므로 파라미터로 가져옴 
-	public FeverTime(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin){
+	public FeverTime(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin, int PIXELSIZE){
 	    System.out.println("This is Fever");
 	    
 	    this.g = g;
@@ -21,22 +22,35 @@ public class FeverTime extends JPanel{
 	    this.BOARDHEIGHT = BOARDHEIGHT;
 	    this.fstPlayerWin = fstPlayerWin;
 	    this.sndPlayerWin = sndPlayerWin;
-	    
-	    //endGame(g, BOARDWIDTH, BOARDHEIGHT, fstPlayerWin, sndPlayerWin);
+	    this.PIXELSIZE = PIXELSIZE;
 	}
 	
 void MiddleFever() {	// 중간 피버타임용 함수 
 	
 }
 
-void EndFever() {	// 마지막 피버타임용 함수 
-	
+void EndFever() {	// 마지막 피버타임용 함수
+	int [][] foodPosition;
+
+//	
+//	Food food = new Food(); 
+//	food.createManyFoods(BOARDWIDTH, BOARDHEIGHT);
+//	foodPosition = food.getFoods();
+//	
+//    g.setColor(Color.RED);
+//    for(int i = 0; i < BOARDWIDTH; i++) {
+//        for(int j = 0; j < BOARDHEIGHT; j++) {
+//        	if(foodPosition[i][j] == 1)
+//        		g.fillRect(i, j, PIXELSIZE, PIXELSIZE); // food
+//        }
+//    }
+//	
 	endGame(g, BOARDWIDTH, BOARDHEIGHT, fstPlayerWin, sndPlayerWin);
 }
 
 void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin) {
 
-	// 이부분은 보드클래스에서 가져온 endGame임. 하영이가 구현한것임! 
+	// 이부분은 보드클래스에서 가져온 endGame임
     // Create a message telling the player the game is over
     String message = "Game over";
     String winMessage = "Wins!!";
@@ -73,7 +87,7 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
                 BOARDHEIGHT / 2 + 40);
         }
 
-    System.out.println("Game Ended");
+    //System.out.println("Game Ended");
 
 }
 
