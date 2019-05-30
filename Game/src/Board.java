@@ -50,7 +50,7 @@ private Snake snake = new Snake();
 private Snake snake2 = new Snake();
 private Food food = new Food();
 private Poison poison = new Poison();
-// Collision 객체 (준현)
+// Collision 媛앹껜 (以��쁽)
 private Collisions collision = new Collisions(snake, snake2, food, poison);
 
 public Board() {
@@ -115,7 +115,7 @@ void draw(Graphics g) {
         // If we're not alive, then we end our game
     	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin(), PIXELSIZE);    	
     	feverTime.EndFever();
-    	//게임이 끝나면 EndFever을 실행
+    	//寃뚯엫�씠 �걹�굹硫� EndFever�쓣 �떎�뻾
     }
 }
 
@@ -148,10 +148,10 @@ void initializeGame() {
 public void actionPerformed(ActionEvent e) {
     if (inGame == true) {
 
-        collision.checkFoodCollisions();	// 사과와 부딪치는 지(준현)
-        collision.checkPoisonCollisions();	// 썩은 사과와 부딪치는 지(준현)
-        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 뱀끼리 부딪치는(준현) 
-        // -> 바로 윗라인이 width, height 위치 구별해서 뱀 위치 조정하는데 이 기능 딴데로 가야할 듯 수정 필요함 (준현)
+        collision.checkFoodCollisions();	// �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
+        collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
+        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽) 
+        // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
         // If the game has ended, then we can stop our timer
         if (!inGame) {
             timer.stop();
@@ -250,6 +250,7 @@ private class Keys extends KeyAdapter {
 private void printScore (Graphics g) {
 	int intScore_1P = 0;
 	int intScore_2P = 0;
+	
 
     Font font = new Font("Times New Roman", Font.BOLD, 14);
     FontMetrics metrics = getFontMetrics(font);
