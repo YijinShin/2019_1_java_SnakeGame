@@ -230,9 +230,9 @@ private class Keys extends KeyAdapter {
         }
 
         if ((key == KeyEvent.VK_ENTER) && (inGame == false)) {
-
-            inGame = true;
-
+            
+        	inGame = true;
+        	
             //stop snakes' movement
             snake.setMovingDown(false);
             snake.setMovingRight(false);
@@ -246,8 +246,8 @@ private class Keys extends KeyAdapter {
 
             //initialize the win-value
             fstPlayerWin = false;
-            sndPlayerWin = false;
-
+            sndPlayerWin = false;        
+            
             initializeGame();
         }
     }

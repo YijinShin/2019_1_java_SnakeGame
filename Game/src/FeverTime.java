@@ -13,7 +13,7 @@ public class FeverTime extends JPanel{
 	boolean fstPlayerWin, sndPlayerWin;
 	int PIXELSIZE;
 	
-	// 피버타임을 구할때는 그래픽, 보드 크기 등등이 필요하므로 파라미터로 가져옴 
+	// �뵾踰꾪��엫�쓣 援ы븷�븣�뒗 洹몃옒�뵿, 蹂대뱶 �겕湲� �벑�벑�씠 �븘�슂�븯誘�濡� �뙆�씪誘명꽣濡� 媛��졇�샂 
 	public FeverTime(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin, int PIXELSIZE){
 	    System.out.println("This is Fever");
 	    
@@ -25,11 +25,11 @@ public class FeverTime extends JPanel{
 	    this.PIXELSIZE = PIXELSIZE;
 	}
 	
-void MiddleFever() {	// 중간 피버타임용 함수 
+void MiddleFever() {	// 以묎컙 �뵾踰꾪��엫�슜 �븿�닔 
 	
 }
 
-void EndFever() {	// 마지막 피버타임용 함수
+void EndFever() {	// 留덉�留� �뵾踰꾪��엫�슜 �븿�닔
 	int [][] foodPosition;
 
 //	
@@ -50,10 +50,11 @@ void EndFever() {	// 마지막 피버타임용 함수
 
 void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin) {
 
-	// 이부분은 보드클래스에서 가져온 endGame임
+	// �씠遺�遺꾩� 蹂대뱶�겢�옒�뒪�뿉�꽌 媛��졇�삩 endGame�엫
     // Create a message telling the player the game is over
     String message = "Game over";
     String winMessage = "Wins!!";
+    String drawMessage = "Draws!!";
     String fstPlayer = "First Player";
     String sndPlayer = "Second Player";
 
@@ -78,7 +79,7 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
     }
 
     //if second player wins
-    if (fstPlayerWin == false && sndPlayerWin == true) {
+    else if (sndPlayerWin == true && fstPlayerWin == false) {
         g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
                 BOARDHEIGHT / 2);
         g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
@@ -86,6 +87,13 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
         g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
                 BOARDHEIGHT / 2 + 40);
         }
+    
+    else if (fstPlayerWin ==true && sndPlayerWin == true) {
+    	g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+                BOARDHEIGHT / 2);
+        g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+                BOARDHEIGHT / 2 + 20);
+    }
 
     //System.out.println("Game Ended");
 

@@ -1,7 +1,7 @@
 package Game.src;
 
 public class Collisions {
-    // Board에서 만든 객체들 저장할 private 변수
+    // Board�뿉�꽌 留뚮뱺 媛앹껜�뱾 ���옣�븷 private 蹂��닔
     private Snake snake1;
     private Snake snake2;
     private Food food;
@@ -9,7 +9,7 @@ public class Collisions {
     private boolean fstPlayerWin = false;
     private boolean sndPlayerWin = false;
 
-    // Constructor을 만들때 snake1, snake2, food, poison 객체 reference를 전달해준
+    // Constructor�쓣 留뚮뱾�븣 snake1, snake2, food, poison 媛앹껜 reference瑜� �쟾�떖�빐以�
     public Collisions(Snake snake1, Snake snake2, Food food, Poison poison) {
         this.snake1 = snake1;
         this.snake2 = snake2;
@@ -72,34 +72,29 @@ public class Collisions {
     }
 
     // Used to check collisions with snake's self and board edges
-    boolean checkCollisions(int width, int height) { // -> 여기서 width, height 위치 구별해서 뱀 위치 조정하는데 이 기능 딴데로 가야할 듯 수정 필요함
-                                                     // (준현)
+    boolean checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
+                                                     // (以��쁽)
 
         // If the snake hits other snake's joints..
-        for (int i = snake2.getJoints(); i > 1; i--) {
-
-            if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 10)
-                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 10)) {
-                sndPlayerWin = true;
-                //return false; // then the game ends
-            }
+        for (int i = snake2.getJoints(); i > 0; i--) {
+        	
+        	if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(0), 5)
+                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(0), 5)) {
+            	if (snake1.getJoints() < snake2.getJoints())
+            		sndPlayerWin = true;
+            	else if (snake1.getJoints() > snake2.getJoints())
+            		fstPlayerWin = true;
+            }          
         }
 
-        for (int i = snake1.getJoints(); i > 1; i--) {
+        for (int i = snake1.getJoints(); i > 0; i--) {
 
-            if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 10)
-                    && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 10)) {
+            if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 5)
+                    && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 5)) {
                 fstPlayerWin = true;
-                //return false; // then the game ends
+                return false; // then the game ends
             }
         }
-        if(sndPlayerWin&&fstPlayerWin) {
-        	sndPlayerWin=false;
-        	fstPlayerWin=false;
-        	return true;
-        }
-        //둘중 하나만 true일경우 각 뱀의 승패여부는 그대로 유지하고 게임 끝내기 
-        else if(sndPlayerWin||fstPlayerWin) return false;
 
         // If the snake intersects with the board edges..
         if (snake1.getSnakeY(0) >= height) {
