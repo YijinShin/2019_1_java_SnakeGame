@@ -76,23 +76,30 @@ public class Collisions {
                                                      // (준현)
 
         // If the snake hits other snake's joints..
-        for (int i = snake2.getJoints(); i > 0; i--) {
+        for (int i = snake2.getJoints(); i > 1; i--) {
 
             if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 10)
                     && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 10)) {
                 sndPlayerWin = true;
-                return false; // then the game ends
+                //return false; // then the game ends
             }
         }
 
-        for (int i = snake1.getJoints(); i > 0; i--) {
+        for (int i = snake1.getJoints(); i > 1; i--) {
 
             if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 10)
                     && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 10)) {
                 fstPlayerWin = true;
-                return false; // then the game ends
+                //return false; // then the game ends
             }
         }
+        if(sndPlayerWin&&fstPlayerWin) {
+        	sndPlayerWin=false;
+        	fstPlayerWin=false;
+        	return true;
+        }
+        //둘중 하나만 true일경우 각 뱀의 승패여부는 그대로 유지하고 게임 끝내기 
+        else if(sndPlayerWin||fstPlayerWin) return false;
 
         // If the snake intersects with the board edges..
         if (snake1.getSnakeY(0) >= height) {
