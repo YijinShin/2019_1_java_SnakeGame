@@ -41,7 +41,7 @@ public class Collisions {
     }
 
     // if our snake is in the close proximity of the poison..
-    void checkPoisonCollisions() {
+    boolean checkPoisonCollisions() {
 
         if ((proximity(snake1.getSnakeX(0), poison.getPoisonX(), 10))
                 && (proximity(snake1.getSnakeY(0), poison.getPoisonY(), 10))) {
@@ -49,6 +49,10 @@ public class Collisions {
             System.out.println("intersection");
             // Add a 'joint' to our snake
             snake1.setJoints(snake1.getJoints() - 1);
+            if (snake1.getJoints() < 1) {
+                sndPlayerWin = true;
+                return false;
+            }
             // Create new food
             poison.createPoison();
         } else if ((proximity(snake2.getSnakeX(0), poison.getPoisonX(), 10))
@@ -57,9 +61,14 @@ public class Collisions {
             System.out.println("intersection");
             // Add a 'joint' to our snake
             snake2.setJoints(snake2.getJoints() - 1);
+            if (snake2.getJoints() < 1) {
+                sndPlayerWin = true;
+                return false;
+            }
             // Create new food
             poison.createPoison();
         }
+        return true;
     }
 
     // Used to check collisions with snake's self and board edges
@@ -69,8 +78,8 @@ public class Collisions {
         // If the snake hits other snake's joints..
         for (int i = snake2.getJoints(); i > 0; i--) {
 
-            if ((snake1.getSnakeX(0) == snake2.getSnakeX(i) && (snake1.getSnakeY(0) == snake2.getSnakeY(i)))
-                    || (snake1.getSnakeX(0) == snake2.getSnakeY(i) && (snake1.getSnakeY(0) == snake2.getSnakeX(i)))) {
+            if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 10)
+                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 10)) {
                 sndPlayerWin = true;
                 return false; // then the game ends
             }
@@ -78,8 +87,8 @@ public class Collisions {
 
         for (int i = snake1.getJoints(); i > 0; i--) {
 
-            if ((snake2.getSnakeX(0) == snake1.getSnakeX(i) && (snake2.getSnakeY(0) == snake1.getSnakeY(i)))
-                    || (snake2.getSnakeX(0) == snake1.getSnakeX(i) && (snake2.getSnakeY(0) == snake1.getSnakeY(i)))) {
+            if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 10)
+                    && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 10)) {
                 fstPlayerWin = true;
                 return false; // then the game ends
             }
