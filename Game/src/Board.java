@@ -33,7 +33,8 @@ private final static int TOTALPIXELS = (BOARDWIDTH * BOARDHEIGHT)
         / (PIXELSIZE * PIXELSIZE);
 
 // Check to see if the game is running
-private boolean inGame = true;
+private int inGame = 1;
+
 private boolean fstPlayerWin = false;
 private boolean sndPlayerWin = false;
 
@@ -74,8 +75,9 @@ protected void paintComponent(Graphics g) {
 
 // Draw our Snake & Food (Called on repaint()).
 void draw(Graphics g) {
+
     // Only draw if the game is running / the snake is alive
-    if (inGame == true) {
+    if (inGame == 1) {
         g.setColor(Color.RED);
         g.fillRect(food.getFoodX(), food.getFoodY(), PIXELSIZE, PIXELSIZE); // food
         g.setColor(Color.blue);
@@ -111,12 +113,13 @@ void draw(Graphics g) {
 
         // Sync our graphics together
         Toolkit.getDefaultToolkit().sync();
-    } else {
-        // If we're not alive, then we end our game
+    }
+    else if(inGame == 2) {
     	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin(), PIXELSIZE);    	
     	feverTime.EndFever();
-    	//寃뚯엫�씠 �걹�굹硫� EndFever�쓣 �떎�뻾
+
     }
+
 }
 
 void initializeGame() {
@@ -146,28 +149,31 @@ void initializeGame() {
 // Run constantly as long as we're in game.
 @Override
 public void actionPerformed(ActionEvent e) {
-    if (inGame == true) {
+    if (inGame == 1) {
 
         collision.checkFoodCollisions();	// �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
         collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
         inGame=collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽) 
-        if (!inGame) {
-            timer.stop();
-        }
-        else {
-	        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽) 
-	        // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
-	        // If the game has ended, then we can stop our timer
-	        if (!inGame) {
-	            timer.stop();
-	        } 
-        }
+        
+        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽) 
+	    // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
+	    // If the game has ended, then we can stop our timer
+
+      
+
         snake.move();
         snake2.move();
 
-        System.out.println(snake.getSnakeX(0) + " " + snake.getSnakeY(0) + " " + snake2.getSnakeX(0)
-                + " " + snake2.getSnakeY(0) + " " + food.getFoodX() + ", " + food.getFoodY()
-                + " " + poison.getPoisonX() +", " + poison.getPoisonY());
+        System.out.println("뱀1 :" +snake.getSnakeX(0) + " " + snake.getSnakeY(0) + ", 뱀2 :" + snake2.getSnakeX(0)
+                + " " + snake2.getSnakeY(0) + ", 사과 :" + food.getFoodX() + ", " + food.getFoodY()
+                + ", 독사과 :" + poison.getPoisonX() +", " + poison.getPoisonY());
+    }
+    else if (inGame == 2) {
+    	//inGame = 여기 뭔가 들어가야
+    	
+        if (inGame == 0) {
+            timer.stop();
+        }
     }
     // Repaint or 'render' our screen
     repaint();
@@ -229,9 +235,9 @@ private class Keys extends KeyAdapter {
             snake2.setMovingLeft(false);
         }
 
-        if ((key == KeyEvent.VK_ENTER) && (inGame == false)) {
+        if ((key == KeyEvent.VK_ENTER) && (inGame == 0)) {
             
-        	inGame = true;
+        	inGame = 1;
         	
             //stop snakes' movement
             snake.setMovingDown(false);

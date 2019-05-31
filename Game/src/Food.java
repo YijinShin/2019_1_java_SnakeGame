@@ -21,16 +21,17 @@ public void createFood() {
     location = (int) (Math.random() * RANDOMPOSITION);
     foodY = ((location * Board.getDotSize()));
 
-    if ((foodX == snake.getSnakeX(0)) && (foodY == snake.getSnakeY(0)) && (foodX == snake2.getSnakeX(0)) && (foodY == snake2.getSnakeY(0))) {
+    if ((foodX == snake.getSnakeX(0)) && (foodY == snake.getSnakeY(0)) &&
+    		(foodX == snake2.getSnakeX(0)) && (foodY == snake2.getSnakeY(0))) {
        	createFood();
     }
 }
 
-public void createManyFoods(int BOARDWIDTH, int BOARDHEIGHT) {
-	foodPosition = new int [BOARDWIDTH][BOARDHEIGHT];
+public void createManyFoods(int widthNum, int heightNum) {
+	foodPosition = new int [widthNum][heightNum];
 	
-    for(int i = 0; i < BOARDWIDTH; i++) {
-        for(int j = 0; j < BOARDWIDTH; j++) {
+    for(int i = 0; i < widthNum; i++) {
+        for(int j = 0; j < heightNum; j++) {
         	if((i + j)%2 == 0)
         		foodPosition[i][j] = 1;
         	else

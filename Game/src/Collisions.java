@@ -41,7 +41,7 @@ public class Collisions {
     }
 
     // if our snake is in the close proximity of the poison..
-    boolean checkPoisonCollisions() {
+    int checkPoisonCollisions() {
 
         if ((proximity(snake1.getSnakeX(0), poison.getPoisonX(), 10))
                 && (proximity(snake1.getSnakeY(0), poison.getPoisonY(), 10))) {
@@ -51,7 +51,7 @@ public class Collisions {
             snake1.setJoints(snake1.getJoints() - 1);
             if (snake1.getJoints() < 1) {
                 sndPlayerWin = true;
-                return false;
+                return 0;
             }
             // Create new food
             poison.createPoison();
@@ -63,27 +63,26 @@ public class Collisions {
             snake2.setJoints(snake2.getJoints() - 1);
             if (snake2.getJoints() < 1) {
                 sndPlayerWin = true;
-                return false;
+                return 0;
             }
             // Create new food
             poison.createPoison();
         }
-        return true;
+        return 1;
     }
 
     // Used to check collisions with snake's self and board edges
-    boolean checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
+    int checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
                                                      // (以��쁽)
 
         // If the snake hits other snake's joints..
         for (int i = snake2.getJoints(); i > 0; i--) {
         	
-        	if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(0), 5)
-                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(0), 5)) {
-            	if (snake1.getJoints() < snake2.getJoints())
+        	if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 5)
+                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 5)) {
+        			System.out.println("asfdjnaovjefakjfsanvkfj");
             		sndPlayerWin = true;
-            	else if (snake1.getJoints() > snake2.getJoints())
-            		fstPlayerWin = true;
+            	return 2;
             }          
         }
 
@@ -92,7 +91,7 @@ public class Collisions {
             if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 5)
                     && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 5)) {
                 fstPlayerWin = true;
-                return false; // then the game ends
+                return 2; // then the game ends
             }
         }
 
@@ -137,7 +136,7 @@ public class Collisions {
             snake2.setSnakeY((int) (Math.random() * height));
         }
 
-        return true;
+        return 1;
     }
 
     private boolean proximity(int a, int b, int closeness) {
