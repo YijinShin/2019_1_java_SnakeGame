@@ -34,6 +34,8 @@ public class Board extends JPanel implements ActionListener {
 
     // Check to see if the game is running
     private int inGame = 1;
+    private int oldTime;
+    private int nowTime;
 
     private boolean fstPlayerWin = false;
     private boolean sndPlayerWin = false;
@@ -75,17 +77,18 @@ public class Board extends JPanel implements ActionListener {
         if (check) {
             draw(g);
         }
-        draw(g);
     }
 
     // Draw our Snake & Food (Called on repaint()).
     void draw(Graphics g) {
+    	FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin(), PIXELSIZE);
 
         // Only draw if the game is running / the snake is alive
         if (inGame == 1) {
             g.setColor(Color.RED);
             g.fillRect(food.getFoodX(), food.getFoodY(), PIXELSIZE, PIXELSIZE); // food
             g.setColor(Color.blue);
+            
             for (int i = 0; i < poison.size(); i++) {
                 g.fillRect(poison.get(i).getPoisonX(), poison.get(i).getPoisonY(), PIXELSIZE, PIXELSIZE); // poison
             }
@@ -115,11 +118,46 @@ public class Board extends JPanel implements ActionListener {
 
             // Sync our graphics together
             Toolkit.getDefaultToolkit().sync();
-        } else if (inGame == 2) {
-            FeverTime feverTime = new FeverTime(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(),
-                    collision.getSndPlayerWin(), PIXELSIZE);
-            feverTime.EndFever();
+        }     else if(inGame == 2) {
+        	feverTime.EndFever();
+        	
 
+            // Draw our snake.
+            for (int i = 0; i < snake.getJoints(); i++) {
+                // Snake's head
+                if (i == 0) {
+                    g.setColor(Color.darkGray);
+                    g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
+                            PIXELSIZE, PIXELSIZE);
+                    // Body of snake
+                } else {
+                    g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
+                            PIXELSIZE, PIXELSIZE);
+                }
+            }
+            for (int i = 0; i < snake2.getJoints(); i++) {
+                // Snake's head
+                if (i == 0) {
+                    g.setColor(Color.white);
+
+                    // Body of snake
+                    g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i),
+                            PIXELSIZE, PIXELSIZE);
+                } else {
+
+                    g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i),
+                            PIXELSIZE, PIXELSIZE);
+                }
+            }
+
+            // Sync our graphics together
+            Toolkit.getDefaultToolkit().sync();
+
+        }
+        else if(inGame == 0) {
+        	feverTime.endGame();
+        	//System.out.println("꺄라ㅏ라라라라락 ");
+        
         }
 
     }
@@ -156,31 +194,51 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (inGame == 1) {
 
-            collision.checkFoodCollisions(); // �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
-            collision.checkPoisonCollisions(); // �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
-            inGame = collision.checkPoisonCollisions(); // �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
-
-            inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽)
-            // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡�
-            // 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
-            // If the game has ended, then we can stop our timer
+            collision.checkFoodCollisions();	// �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
+            collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
+            inGame=collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽) 
+            
+            inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽) 
+    	    // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
+    	    // If the game has ended, then we can stop our timer
 
             snake.move();
             snake2.move();
 
-            System.out.println("뱀1 :" + snake.getSnakeX(0) + " " + snake.getSnakeY(0) + ", 뱀2 :" + snake2.getSnakeX(0)
-                    + " " + snake2.getSnakeY(0) + ", 사과 :" + food.getFoodX() + ", " + food.getFoodY() );
-                   // + ", 독사과 :"+ poison.getPoisonX() + ", " + poison.getPoisonY());
-        } else if (inGame == 2) {
-            // inGame = 여기 뭔가 들어가야
+//            System.out.println("뱀1 :" +snake.getSnakeX(0) + " " + snake.getSnakeY(0) + ", 뱀2 :" + snake2.getSnakeX(0)
+//                    + " " + snake2.getSnakeY(0) + ", 사과 :" + food.getFoodX() + ", " + food.getFoodY()
+////                    + ", 독사과 :" + poison.getPoisonX() +", " + poison.getPoisonY());
+        	oldTime = (int) System.currentTimeMillis() / 1000;
+        	//System.out.println("oldTime : "+ oldTime);
 
+        }
+        if (inGame == 2) {    	
+        	if(collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false) {
+                snake.move();
+        	}
+        	else if (collision.getFstPlayerWin() == false && collision.getSndPlayerWin() == true){
+                snake2.move();
+        	}
+        	
+        	//inGame = 여기 뭔가 들어가야
+        	nowTime = (int) System.currentTimeMillis() / 1000;
+        	int cc = nowTime - oldTime;
+        	System.out.println("Timer : " + cc );
+        	
+        	if(nowTime - oldTime == 5)
+        		inGame = 0;
+        	
             if (inGame == 0) {
                 timer.stop();
             }
         }
+
         // Repaint or 'render' our screen
         repaint();
     }
+
+    
+  
 
     private class Keys extends KeyAdapter {
 
