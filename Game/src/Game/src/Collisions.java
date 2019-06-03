@@ -1,6 +1,9 @@
 package Game.src;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+
 
 public class Collisions {
     // Board�뿉�꽌 留뚮뱺 媛앹껜�뱾 ���옣�븷 private 蹂��닔
@@ -19,6 +22,42 @@ public class Collisions {
         this.poison = poison;
     }
 
+
+    void checkManyFoodCollisions(int widthNum, int heightNum, int PIXELSIZE) {
+    	if(fstPlayerWin && !sndPlayerWin) {
+    	int count = 0;
+	    	for(int i = 0; i < heightNum; i++) {
+	            for(int j = 0; j < widthNum; j++) {
+
+	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, 11))
+	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, 11))) {
+	            		count++;
+	            		if(food.foodPosition[i][j] == 1) {
+	            			food.foodPosition[j][i] = 0;
+	            		}
+	            	}
+	            }
+	        }
+	    //System.out.println(count);
+    	}
+
+    	else if(!fstPlayerWin && sndPlayerWin) {
+    		for(int i = 0; i < widthNum; i++) {
+	            for(int j = 0; j < heightNum; j++) {
+
+	            	if ((proximity(snake2.getSnakeX(0), j * PIXELSIZE, 11))
+	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, 11))) {
+	            		System.out.println("i: " + (i) * PIXELSIZE + "  SNAKE Y:" + snake2.getSnakeY(0));
+	            		System.out.println("j: " + (j) * PIXELSIZE + "  SNAKE X:" + snake2.getSnakeX(0));
+	            		if(food.foodPosition[i][j] == 1) {
+	            			food.foodPosition[j][i] = 0;
+	            		}
+	            	}
+	            }
+	        }
+    	}
+
+    }
     // if our snake is in the close proximity of the food..
     void checkFoodCollisions() {
 
@@ -75,18 +114,17 @@ public class Collisions {
     }
 
     // Used to check collisions with snake's self and board edges
-    int checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡�
-                                                 // 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
-                                                 // (以��쁽)
+    int checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
+                                                     // (以��쁽)
 
         // If the snake hits other snake's joints..
         for (int i = snake2.getJoints(); i > 0; i--) {
 
-            if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 5)
+        	if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 5)
                     && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 5)) {
-                System.out.println("asfdjnaovjefakjfsanvkfj");
-                sndPlayerWin = true;
-                return 2;
+        			System.out.println("asfdjnaovjefakjfsanvkfj");
+            		sndPlayerWin = true;
+            	return 2;
             }
         }
 
@@ -163,5 +201,4 @@ public class Collisions {
             poison.get(i).createPoison();
         }
     }
-
 }

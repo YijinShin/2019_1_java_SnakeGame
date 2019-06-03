@@ -5,8 +5,8 @@ private Snake snake = new Snake();
 private Snake snake2 = new Snake();
 private int foodX; // Stores X pos of our food
 private int foodY; // Stores Y pos of our food
-private int [][] foodPosition;
- 
+public int [][] foodPosition;
+
 
 // Used to determine random position of food
 private final int RANDOMPOSITION = 100;
@@ -29,9 +29,9 @@ public void createFood() {
 
 public void createManyFoods(int widthNum, int heightNum) {
 	foodPosition = new int [widthNum][heightNum];
-	
-    for(int i = 0; i < widthNum; i++) {
-        for(int j = 0; j < heightNum; j++) {
+
+    for(int i = 0; i < heightNum; i++) {
+        for(int j = 0; j < widthNum; j++) {
         	if((i + j)%2 == 0)
         		foodPosition[i][j] = 1;
         	else

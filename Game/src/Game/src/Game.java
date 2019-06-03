@@ -1,4 +1,4 @@
-package Game.src;
+//package Game.src;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
