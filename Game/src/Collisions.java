@@ -192,6 +192,14 @@ public class Collisions {
     public boolean getSndPlayerWin() {
         return sndPlayerWin;
     }
+    
+    public void setFstPlayerWin(boolean fstPlayerWin) {
+    	this.fstPlayerWin = fstPlayerWin;
+    }
+    
+    public void setSndPlayerWin(boolean sndPlayerWin) {
+    	this.sndPlayerWin = sndPlayerWin;
+    }
 
     public void relocation(ArrayList<Poison> poison, int collidePoisonNum) {
         Poison addpoison = new Poison();
