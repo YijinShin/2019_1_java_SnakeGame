@@ -1,4 +1,4 @@
-//package Game.src;
+package Game.src;
 public class Poison {
 	
 private Snake snake = new Snake();

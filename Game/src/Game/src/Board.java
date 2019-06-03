@@ -340,6 +340,16 @@ private class Keys extends KeyAdapter {
             // initialize the win-value
             fstPlayerWin = false;
             sndPlayerWin = false;
+            
+            for(int i = 0; i < BOARDHEIGHT/PIXELSIZE; i++) {
+                for(int j = 0; j < BOARDWIDTH/PIXELSIZE; j++) {
+                	if((i + j)%2 == 0)
+                		food.foodPosition[i][j] = 1;
+                	else
+                		food.foodPosition[i][j] = 0;
+
+                }
+            }
 
             initializeGame();
         }

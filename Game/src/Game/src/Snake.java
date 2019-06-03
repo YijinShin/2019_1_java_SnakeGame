@@ -1,4 +1,4 @@
-//package Game.src;
+package Game.src;
 public class Snake {
 
 // Stores the joints / body part locations for our snake
