@@ -178,6 +178,7 @@ void draw(Graphics g) {
     }
     else if(inGame == 0) {
         feverTime.endGame(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin());
+        username(g, BOARDWIDTH, BOARDHEIGHT);
         //System.out.println("꺄라ㅏ라라라라락 ");
     }
 }
@@ -347,7 +348,7 @@ private class Keys extends KeyAdapter {
 }
 
 
-    void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
+ void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
         // Create a message telling the player the game is over
         String gameTitle = "== Snake Game ==";
         String startmessage = "Press the Enter";
@@ -371,6 +372,29 @@ private class Keys extends KeyAdapter {
             g.fillRect(metrics.stringWidth(explanation1) / 2 + 10 * i, BOARDHEIGHT / 2 + 70, PIXELSIZE, PIXELSIZE);
         }
     }
+ 
+ void username(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
+     // Create a message telling the player the game is over
+     String gameTitle = "your name?";
+     String startmessage = "Press the Enter";
+
+     // Create a new font instance
+     Font font = new Font("Times New Roman", Font.BOLD, 25);
+     FontMetrics metrics = getFontMetrics(font);
+
+     // Set the color of the text to red, and set the font
+     g.setColor(Color.red);
+     g.setFont(font);
+
+     g.drawString(gameTitle, (BOARDWIDTH - metrics.stringWidth(gameTitle)) / 2, BOARDHEIGHT / 2 - 40);
+     g.drawString(startmessage, (BOARDWIDTH - metrics.stringWidth(startmessage)) / 2, BOARDHEIGHT / 2);
+     // g.setColor(Color.gray);
+     g.drawString(explanation1, (BOARDWIDTH - metrics.stringWidth(explanation1)) / 2, BOARDHEIGHT / 2 + 40);
+     for (int i = 0; i < 10; i++) {
+         g.setColor(Color.darkGray);
+         g.fillRect(metrics.stringWidth(explanation1) / 2 + 10 * i, BOARDHEIGHT / 2 + 70, PIXELSIZE, PIXELSIZE);
+     }
+ }
 
 private void printScore (Graphics g) {
 	int intScore_1P = 0;
