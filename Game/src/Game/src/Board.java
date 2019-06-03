@@ -186,8 +186,8 @@ void initializeGame() {
     snake.setJoints(10); // set our snake's initial size
     snake2.setJoints(10);
     
-    collision.fstPlayerWin = false;
-    collision.sndPlayerWin = false;
+    collision.setFstPlayerWin(false);
+    collision.setSndPlayerWin(false);
     
 
     // Create our snake's body
