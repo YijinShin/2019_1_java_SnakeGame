@@ -32,6 +32,8 @@ public class Collisions {
 	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, 11))
 	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, 11))) {
 	            		count++;
+	            		// Add score
+	                    snake1.setScore(snake1.getScore() + 1);
 	            		if(food.foodPosition[i][j] == 1) {
 	            			food.foodPosition[j][i] = 0;
 	            		}
@@ -49,6 +51,8 @@ public class Collisions {
 	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, 11))) {
 	            		System.out.println("i: " + (i) * PIXELSIZE + "  SNAKE Y:" + snake2.getSnakeY(0));
 	            		System.out.println("j: " + (j) * PIXELSIZE + "  SNAKE X:" + snake2.getSnakeX(0));
+	            		 // Add score
+	                    snake2.setScore(snake2.getScore() + 1);
 	            		if(food.foodPosition[i][j] == 1) {
 	            			food.foodPosition[j][i] = 0;
 	            		}
@@ -67,6 +71,8 @@ public class Collisions {
             System.out.println("intersection");
             // Add a 'joint' to our snake
             snake1.setJoints(snake1.getJoints() + 1);
+            // Add score
+            snake1.setScore(snake1.getScore() + 100);
             // Create new food
             food.createFood();
         }
@@ -76,6 +82,8 @@ public class Collisions {
             System.out.println("intersection");
             // Add a 'joint' to our snake
             snake2.setJoints(snake2.getJoints() + 1);
+            // Add score
+            snake2.setScore(snake2.getScore() + 100);
             // Create new food
             food.createFood();
         }
@@ -124,6 +132,7 @@ public class Collisions {
                     && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 5)) {
         			System.out.println("asfdjnaovjefakjfsanvkfj");
             		sndPlayerWin = true;
+            		snake2.setScore(snake2.getScore() + snake1.getScore());
             	return 2;
             }
         }
@@ -133,6 +142,7 @@ public class Collisions {
             if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 5)
                     && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 5)) {
                 fstPlayerWin = true;
+                snake1.setScore(snake1.getScore() + snake2.getScore());
                 return 2; // then the game ends
             }
         }

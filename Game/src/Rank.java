@@ -94,6 +94,25 @@ public class Rank {
 				System.out.println ("Input or Output Error!!" + e.getMessage());
 			}
 		}
+		
+		public String getHighscoreString() {
+	        String highscoreString = "";
+		     int max = 10;
+
+	        ArrayList<Score> scores;
+	        scores = getScores();
+
+	        int i = 0;
+	        int x = scores.size();
+	        if (x > max) {
+	            x = max;
+	        }
+	        while (i < x) {
+	            highscoreString += (i + 1) + ".\t" + scores.get(i).getName() + "\t\t" + scores.get(i).getScore() + "\n";
+	            i++;
+	        }
+	        return highscoreString;
+	}
 
 		//it takes the score of ranker
 		public ArrayList<Score> getScores() {

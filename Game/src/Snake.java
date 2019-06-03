@@ -13,6 +13,8 @@ private boolean movingDown = false;
 
 private int joints = 0; // Stores # of dots / joints the snake has (starts
                         // with 3)
+private int score = 0;
+private String nameP = "";
 
 public int getSnakeX(int index) {
     return x[index];
@@ -68,6 +70,20 @@ public int getJoints() {
 
 public void setJoints(int j) {
     joints = j;
+}
+
+public int getScore() {
+	return score;
+}
+public void setScore(int s) {
+	score = s;
+}
+
+public String getName() {
+	return nameP;
+}
+public void setName(String n) {
+	nameP = n;
 }
 
 public void move() {

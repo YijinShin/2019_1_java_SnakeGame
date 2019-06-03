@@ -58,7 +58,10 @@ private Food food = new Food();
 private ArrayList<Poison> poison = new ArrayList<Poison>();
 // Collision 媛앹껜 (以��쁽)
 private Collisions collision = new Collisions(snake, snake2, food, poison);
-private FeverTime feverTime = new FeverTime(food,  BOARDWIDTH, BOARDHEIGHT, PIXELSIZE);
+private FeverTime feverTime = new FeverTime(food,  BOARDWIDTH, BOARDHEIGHT, PIXELSIZE, snake, snake2);
+
+// Rank
+private Rank rk = new Rank();
 
 public Board() {
 
@@ -88,6 +91,7 @@ void draw(Graphics g) {
 
     // Only draw if the game is running / the snake is alive
     if (inGame == 1) {
+    	printScore(g);
         g.setColor(Color.RED);
         g.fillRect(food.getFoodX(), food.getFoodY(), PIXELSIZE, PIXELSIZE); // food
         g.setColor(Color.blue);
@@ -122,13 +126,12 @@ void draw(Graphics g) {
         Toolkit.getDefaultToolkit().sync();
     }
     else if(inGame == 2) {
-
+    	
     	if(fever) {
     		feverTime.EndFever(g, collision.getFstPlayerWin(), collision.getSndPlayerWin());
     		fever = false;
     	}
-
-
+    	
     	collision.checkManyFoodCollisions(BOARDWIDTH/PIXELSIZE, BOARDHEIGHT/PIXELSIZE,PIXELSIZE);
 
         for(int i = 0; i < BOARDHEIGHT/PIXELSIZE; i++) {
@@ -143,6 +146,8 @@ void draw(Graphics g) {
             	}
             }
         }
+        printScore(g);
+        
         // Draw our snake.
         for (int i = 0; i < snake.getJoints(); i++) {
             // Snake's head
@@ -345,6 +350,10 @@ private class Keys extends KeyAdapter {
             fstPlayerWin = false;
             sndPlayerWin = false;
             
+            // initialize the score
+            snake.setScore(0);
+            snake2.setScore(0);
+            
             fever = true;
 
             initializeGame();
@@ -378,23 +387,24 @@ private class Keys extends KeyAdapter {
         }
     }
 
-private void printScore (Graphics g) {
-	int intScore_1P = 0;
-	int intScore_2P = 0;
+    private void printScore(Graphics g) {
+        int intScore_1P = snake.getScore();
+        int intScore_2P = snake2.getScore();
 
+        Font font = new Font("Times New Roman", Font.BOLD, 25);
+        FontMetrics metrics = getFontMetrics(font);
 
-    Font font = new Font("Times New Roman", Font.BOLD, 14);
-    FontMetrics metrics = getFontMetrics(font);
+        // Set the color of the text to red, and set the font
+        g.setColor(Color.white);
+        g.setFont(font);
 
-    // Set the color of the text to red, and set the font
-    g.setColor(Color.red);
-    g.setFont(font);
+        // Draw the message to the board
+        g.drawString(String.valueOf(intScore_1P), (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4,
+                50);
+        g.drawString(String.valueOf(intScore_2P),
+                (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 50);
 
-    // Draw the message to the board
-    g.drawString(String.valueOf(intScore_1P), (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4, 50);
-    g.drawString(String.valueOf(intScore_2P), (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 50);
-
-}
+    }
 
 
 public static int getAllDots() {

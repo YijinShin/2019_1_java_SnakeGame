@@ -7,7 +7,7 @@ private int poisonX; // Stores X pos of our food
 private int poisonY; // Stores Y pos of our food
 
 // Used to determine random position of food
-private final int RANDOMPOSITION = 100;
+private final int RANDOMPOSITION = 80;
 
 public void createPoison() {
 

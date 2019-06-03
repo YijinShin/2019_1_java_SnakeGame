@@ -9,7 +9,7 @@ public int [][] foodPosition;
 
 
 // Used to determine random position of food
-private final int RANDOMPOSITION = 100;
+private final int RANDOMPOSITION = 80;
 
 public void createFood() {
 

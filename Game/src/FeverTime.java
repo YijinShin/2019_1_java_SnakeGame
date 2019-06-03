@@ -15,6 +15,7 @@ public class FeverTime extends JPanel{
 	int BOARDWIDTH, BOARDHEIGHT;
 	//boolean fstPlayerWin, sndPlayerWin;
 	int PIXELSIZE;
+	Snake snake1, snake2;
 	Timer timer;
 
 	// �뵾踰꾪��엫�쓣 援ы븷�븣�뒗 洹몃옒�뵿, 蹂대뱶 �겕湲� �벑�벑�씠 �븘�슂�븯誘�濡� �뙆�씪誘명꽣濡� 媛��졇�샂
@@ -30,7 +31,7 @@ public class FeverTime extends JPanel{
 	    this.PIXELSIZE = PIXELSIZE;
 	}
 	*/
-	public FeverTime(Food food, int BOARDWIDTH, int BOARDHEIGHT, int PIXELSIZE){
+	public FeverTime(Food food, int BOARDWIDTH, int BOARDHEIGHT, int PIXELSIZE, Snake sn_1, Snake sn_2){
 	    System.out.println("This is Fever");
 
 	    //this.g = g;
@@ -38,6 +39,8 @@ public class FeverTime extends JPanel{
 	    this.BOARDWIDTH = BOARDWIDTH;
 	    this.BOARDHEIGHT = BOARDHEIGHT;
 	    this.PIXELSIZE = PIXELSIZE;
+	    this.snake1 = sn_1;
+	    this.snake2 = sn_2;
 	}
 
 //	TimerTask RealEndFever = new TimerTask() {
@@ -130,6 +133,7 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
     String drawMessage = "Draws!!";
     String fstPlayer = "First Player";
     String sndPlayer = "Second Player";
+    String score = "Score: ";
 
     // Create a new font instance
     Font font = new Font("Times New Roman", Font.BOLD, 25);
@@ -140,31 +144,33 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
     g.setFont(font);
 
     // Draw the message to the board
-
-    //If fisrt player wins the game
-    if (fstPlayerWin == true && sndPlayerWin == false) {
     g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
             BOARDHEIGHT / 2);
-    g.drawString(fstPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+
+    //If first player wins the game
+    if (fstPlayerWin == true && sndPlayerWin == false) {    
+    g.drawString(fstPlayer, (BOARDWIDTH - metrics.stringWidth(fstPlayer)) / 2,
             BOARDHEIGHT / 2 + 40);
-    g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+    g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(winMessage)) / 2,
             BOARDHEIGHT / 2 + 60);
+    g.drawString(score, (BOARDWIDTH - metrics.stringWidth(score)) / 2 - 60, BOARDHEIGHT / 2 + 100);
+    g.drawString(String.valueOf(snake1.getScore()), (BOARDWIDTH - metrics.stringWidth(String.valueOf(snake1.getScore()))) / 2,
+    		 BOARDHEIGHT / 2 + 100);
     }
 
     //if second player wins
-    else if (sndPlayerWin == true && fstPlayerWin == false) {
-        g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-                BOARDHEIGHT / 2);
-        g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+    else if (sndPlayerWin == true && fstPlayerWin == false) {        
+        g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(sndPlayer)) / 2,
                 BOARDHEIGHT / 2 + 20);
-        g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+        g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(winMessage)) / 2,
                 BOARDHEIGHT / 2 + 40);
+        g.drawString(score, (BOARDWIDTH - metrics.stringWidth(score)) / 2 - 60, BOARDHEIGHT / 2 + 100);
+        g.drawString(String.valueOf(snake2.getScore()), (BOARDWIDTH - metrics.stringWidth(String.valueOf(snake2.getScore()))) / 2,
+       		 BOARDHEIGHT / 2 + 100);
         }
 
-    else if (fstPlayerWin ==true && sndPlayerWin == true) {
-    	g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-                BOARDHEIGHT / 2);
-        g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
+    else if (fstPlayerWin ==true && sndPlayerWin == true) {    	
+        g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(drawMessage)) / 2,
                 BOARDHEIGHT / 2 + 20);
     }
 
