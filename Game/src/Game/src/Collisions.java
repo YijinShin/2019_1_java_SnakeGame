@@ -11,8 +11,8 @@ public class Collisions {
     private Snake snake2;
     private Food food;
     private ArrayList<Poison> poison = new ArrayList<Poison>();
-    private boolean fstPlayerWin = false;
-    private boolean sndPlayerWin = false;
+    public boolean fstPlayerWin = false;
+    public boolean sndPlayerWin = false;
 
     // Constructor�쓣 留뚮뱾�븣 snake1, snake2, food, poison 媛앹껜 reference瑜� �쟾�떖�빐以�
     public Collisions(Snake snake1, Snake snake2, Food food, ArrayList<Poison> poison) {

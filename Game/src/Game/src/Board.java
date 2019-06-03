@@ -185,6 +185,10 @@ void draw(Graphics g) {
 void initializeGame() {
     snake.setJoints(10); // set our snake's initial size
     snake2.setJoints(10);
+    
+    collision.fstPlayerWin = false;
+    collision.sndPlayerWin = false;
+    
 
     // Create our snake's body
     for (int i = 0; i < snake.getJoints(); i++) {
@@ -341,15 +345,7 @@ private class Keys extends KeyAdapter {
             fstPlayerWin = false;
             sndPlayerWin = false;
             
-            for(int i = 0; i < BOARDHEIGHT/PIXELSIZE; i++) {
-                for(int j = 0; j < BOARDWIDTH/PIXELSIZE; j++) {
-                	if((i + j)%2 == 0)
-                		food.foodPosition[i][j] = 1;
-                	else
-                		food.foodPosition[i][j] = 0;
-
-                }
-            }
+            fever = true;
 
             initializeGame();
         }
