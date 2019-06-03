@@ -12,7 +12,7 @@ public class RankComparator implements Comparator<Score> {
 			return -1;
 		}
 		else if (s1 < s2) {
-			return +1;
+			return 1;
 		}
 		else {
 			return 0;

@@ -97,7 +97,7 @@ public class Rank {
 		
 		public String getHighscoreString() {
 	        String highscoreString = "";
-		     int max = 10;
+		int max = 10;
 
 	        ArrayList<Score> scores;
 	        scores = getScores();
@@ -113,7 +113,7 @@ public class Rank {
 	        }
 	        return highscoreString;
 	}
-
+		
 		//it takes the score of ranker
 		public ArrayList<Score> getScores() {
 			loadScoreFile();
