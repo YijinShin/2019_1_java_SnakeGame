@@ -74,7 +74,7 @@ public class Collisions {
 
             System.out.println("intersection");
             // Add a 'joint' to our snake
-            snake1.setJoints(snake1.getJoints() + 1);
+            snake1.setJoints(snake1.getJoints() + 5);
             // Add score
             snake1.setScore(snake1.getScore() + nmScore);
             // Create new food
@@ -85,7 +85,7 @@ public class Collisions {
 
             System.out.println("intersection");
             // Add a 'joint' to our snake
-            snake2.setJoints(snake2.getJoints() + 1);
+            snake2.setJoints(snake2.getJoints() + 5);
             // Add score
             snake2.setScore(snake2.getScore() + nmScore);
             // Create new food
