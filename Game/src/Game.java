@@ -1,7 +1,7 @@
 package Game.src;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import java.io.File;
 
 public class Game extends JFrame {
 
@@ -25,5 +25,9 @@ public static void main(String[] args) {
             frame.setVisible(true);
         }
     });
+    while(Board.getingame()==true) {
+    	File gamemusic =new File("fever.wav");
+        music.PlaySound(gamemusic);
+    }
 }
 }

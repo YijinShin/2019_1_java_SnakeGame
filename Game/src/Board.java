@@ -36,7 +36,7 @@ private final static int TOTALPIXELS = (BOARDWIDTH * BOARDHEIGHT)
 
 
 // Check to see if the game is running
-private int inGame = 1;
+private static int inGame = 1;
 private int oldTime;
 private int nowTime;
 
@@ -563,7 +563,15 @@ void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
         }
     }
 
-
+    public static  boolean getingame() {
+      	 boolean gaming = true;
+      	 if(inGame == 1)
+      		 return gaming;
+      	 else
+      	 return false;
+      	 
+       }
+    
 public static int getAllDots() {
     return TOTALPIXELS;
 }
