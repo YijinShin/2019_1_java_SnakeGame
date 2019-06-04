@@ -102,20 +102,22 @@ public class Collisions {
                 System.out.println("intersection");
                 // Add a 'joint' to our snake
                 snake1.setJoints(snake1.getJoints() - 1);
-                if (snake1.getJoints() < 1)
+                if (snake1.getJoints() < 1) {
                     sndPlayerWin = true;
-                    return 0;
+                    return -2;
                 }
-                // Create new food
-                relocation(poison, i);
+                return i;
+                
             } else if ((proximity(snake2.getSnakeX(0), poison.get(i).getPoisonX(), distance))
                     && (proximity(snake2.getSnakeY(0), poison.get(i).getPoisonY(), distance))) {
 
                 System.out.println("intersection");
                 // Add a 'joint' to our snake
                 snake2.setJoints(snake2.getJoints() - 1);
-                if (snake2.getJoints() < 1)
-                    sndPlayerWin = true;
+                if (snake2.getJoints() < 1) {
+                    fstPlayerWin = true;
+                    return -2;
+                }
                 return i;
 
 

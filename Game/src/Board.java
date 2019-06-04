@@ -200,7 +200,7 @@ void draw(Graphics g) {
     else if (inGame == 3) {    	
      	  	    	 
     	printRanking(g);
-    
+    	initializeGame();
     }
     
 }
@@ -227,11 +227,17 @@ void initializeGame() {
 
     // Generate our first 'food'
     food.createFood();
+    
+//    ArrayList<Poison> _poison = poison;
+//    poison = new ArrayList<Poison>();
+    poison.clear();
+    
     for (int i = 0; i < 10; i++) {
         System.out.println("사과 생성중 " + poison.size());
         poison.add(new Poison());
         poison.get(i).createPoison();
     }
+    
 
     // set the timer to record our game's speed / make the game move
     timer = new Timer(speed, this);
@@ -245,14 +251,14 @@ public void actionPerformed(ActionEvent e) {
 
         collision.checkFoodCollisions();	
         collision.checkPoisonCollisions();	
+        
+        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT);
+        
         int checkIndexPosion = collision.checkPoisonCollisions();
-        if(checkIndexPosion != -1)
+        if(checkIndexPosion == -2)
+        	inGame = 2;
+        else if(checkIndexPosion != -1)
             relocation(poison, checkIndexPosion);
-
-        inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽)
-	    // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
-	    // If the game has ended, then we can stop our timer
-
 
 
         snake.move();
@@ -357,6 +363,7 @@ private class Keys extends KeyAdapter {
         if ((key == KeyEvent.VK_ENTER) && ((inGame == 0) || (inGame ==3))) {
 
             inGame = 1;
+            initializeGame();
 
             // stop snakes' movement
             snake.setMovingDown(false);
