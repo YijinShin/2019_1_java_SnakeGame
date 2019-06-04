@@ -220,6 +220,9 @@ void initializeGame() {
         snake2.setSnakeX(BOARDWIDTH / 4 * 3);
         snake2.setSnakeY(BOARDHEIGHT / 4 * 3);
     }
+    
+    snake.initialSnake();
+    snake2.initialSnake();
    
     // Start off our snake moving right
     snake.setMovingRight(true);

@@ -115,4 +115,14 @@ public void move() {
     // Dotsize represents the size of the joint, so a pixel of DOTSIZE
     // gets added on to the snake in that direction
 }
+
+public void initialSnake() {
+	for (int i = joints; i > 0; i--) {
+
+        // Moves the joints of the snake 'up the chain'
+        // Meaning, the joint of the snake all move up one
+        x[i] = x[0];
+        y[i] = y[0];
+    }
+}
  }
