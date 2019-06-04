@@ -109,7 +109,7 @@ void draw(Graphics g) {
         for (int i = 0; i < snake.getJoints(); i++) {
             // Snake's head
             if (i == 0) {
-                g.setColor(Color.darkGray);
+                g.setColor(Color.yellow);
                 g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i), PIXELSIZE, PIXELSIZE);
                 // Body of snake
             } else {
@@ -119,7 +119,7 @@ void draw(Graphics g) {
         for (int i = 0; i < snake2.getJoints(); i++) {
             // Snake's head
             if (i == 0) {
-                g.setColor(Color.white);
+                g.setColor(Color.green);
 
                 // Body of snake
                 g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i), PIXELSIZE, PIXELSIZE);
@@ -161,7 +161,7 @@ void draw(Graphics g) {
         for (int i = 0; i < snake.getJoints(); i++) {
             // Snake's head
             if (i == 0) {
-                g.setColor(Color.darkGray);
+                g.setColor(Color.yellow);
                 g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
                         PIXELSIZE, PIXELSIZE);
                 // Body of snake
@@ -173,7 +173,7 @@ void draw(Graphics g) {
         for (int i = 0; i < snake2.getJoints(); i++) {
             // Snake's head
             if (i == 0) {
-                g.setColor(Color.white);
+                g.setColor(Color.green);
 
                 // Body of snake
                 g.fillRect(snake2.getSnakeX(i), snake2.getSnakeY(i),
@@ -423,30 +423,89 @@ private class Keys extends KeyAdapter {
 }
 
 
-    void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
-        // Create a message telling the player the game is over
-        String gameTitle = "== Snake Game ==";
-        String startmessage = "Press the Enter";
-        String explanation1 = "1p : use a,w,d,s  	2p : user ◀,▲,▶,▼";
-        // String explanation2 ="2p : user ◀,▲,▶,▼";
+void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
+    // Create a message telling the player the game is over
+	String updown = "--------------------------------------------------------------------------------";
+    String gameTitle = "== 2P Snake Game ==";
+    String goodap = "GOOD-apple : ";
+    String badap = "BAD-apple : ";
+    String instruction = "1. How to win : Eat GOOD-apple as much as possible and Kill other snake.";
+    String aware = "2. !!! Becareful !!! for BAD-apple and COLLISION with other snake!";
+    String line = "------------------------------------------";
+    String startmessage = "|    press the  ENTER  to start    |";
+    String explanation1 = "1p : use ◀,▲,▶,▼";
+    String explanation2 = "2p : use a,w,d,s";
 
-        // Create a new font instance
-        Font font = new Font("Times New Roman", Font.BOLD, 25);
-        FontMetrics metrics = getFontMetrics(font);
+    // Create a new font instance
+    Font font = new Font("Times New Roman", Font.BOLD, 25);
+    Font font2 = new Font("Times New Roman", Font.BOLD, 19);
+    Font font3 = new Font("Times New Roman", Font.BOLD, 40);
+    
+    FontMetrics metrics = getFontMetrics(font);
 
-        // Set the color of the text to red, and set the font
-        g.setColor(Color.red);
-        g.setFont(font);
-
-        g.drawString(gameTitle, (BOARDWIDTH - metrics.stringWidth(gameTitle)) / 2, BOARDHEIGHT / 2 - 40);
-        g.drawString(startmessage, (BOARDWIDTH - metrics.stringWidth(startmessage)) / 2, BOARDHEIGHT / 2);
-        // g.setColor(Color.gray);
-        g.drawString(explanation1, (BOARDWIDTH - metrics.stringWidth(explanation1)) / 2, BOARDHEIGHT / 2 + 40);
-        for (int i = 0; i < 10; i++) {
-            g.setColor(Color.darkGray);
-            g.fillRect(metrics.stringWidth(explanation1) / 2 + 10 * i, BOARDHEIGHT / 2 + 70, PIXELSIZE, PIXELSIZE);
-        }
+    // updown
+    g.setColor(Color.white);
+    g.setFont(font);
+    g.drawString(updown, (BOARDWIDTH - metrics.stringWidth(updown)) / 2 , BOARDHEIGHT / 2 - 200);
+    
+    // gametitle
+    g.setFont(font3);
+    g.drawString(gameTitle, (BOARDWIDTH - metrics.stringWidth(gameTitle)) / 2 - 70, BOARDHEIGHT / 2 - 120);
+    
+    //good-apple
+    g.setColor(Color.red);
+    g.setFont(font2);
+    g.drawString(goodap, (BOARDWIDTH - metrics.stringWidth(goodap)) / 2 - 70, BOARDHEIGHT / 2 - 80);
+    g.fillRect((BOARDWIDTH - metrics.stringWidth(goodap)) / 2 +60, BOARDHEIGHT / 2 - 91 ,PIXELSIZE, PIXELSIZE);
+    
+    //bad-apple
+    g.setColor(Color.blue);
+    g.setFont(font2);
+    g.drawString(badap, (BOARDWIDTH - metrics.stringWidth(badap)) / 2 + 100, BOARDHEIGHT / 2 - 80);
+    g.fillRect((BOARDWIDTH - metrics.stringWidth(goodap)) / 2 +225, BOARDHEIGHT / 2 - 91 ,PIXELSIZE, PIXELSIZE);
+    
+    //instruction
+    g.setColor(Color.white);
+    g.setFont(font2);
+    g.drawString(instruction, (BOARDWIDTH - metrics.stringWidth(instruction)) / 2 + 90 , BOARDHEIGHT / 2 - 40);
+    
+    //aware
+    g.drawString(aware, (BOARDWIDTH - metrics.stringWidth(aware)) / 2 + 90 , BOARDHEIGHT / 2 - 10);
+    
+    // enter button
+    g.setColor(Color.magenta);
+    g.setFont(font);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line)) / 2, BOARDHEIGHT / 2 +30);
+    g.drawString(startmessage, (BOARDWIDTH - metrics.stringWidth(startmessage)) / 2, BOARDHEIGHT / 2 +50);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line)) / 2, BOARDHEIGHT / 2 + 70);
+    
+    //1p manual
+    g.setColor(Color.yellow);
+    g.drawString(explanation1, (BOARDWIDTH - metrics.stringWidth(explanation1)) /2 - 110, BOARDHEIGHT / 2 + 110);
+    
+    //2p manual
+    g.setColor(Color.green);
+    g.drawString(explanation2, (BOARDWIDTH - metrics.stringWidth(explanation1)) /2 + 140 , BOARDHEIGHT / 2 +110);
+    
+    //1p snake
+    for (int i = 0; i < 10; i++) {
+        g.setColor(Color.yellow);
+        g.fillRect(metrics.stringWidth(explanation1) + 140 - 10 * i, BOARDHEIGHT / 2 + 140, PIXELSIZE, PIXELSIZE);
     }
+    
+    //2p snake
+    for (int i = 0; i < 10; i++) {
+        g.setColor(Color.green);
+        g.fillRect(metrics.stringWidth(explanation2) + 310 + 10 * i, BOARDHEIGHT / 2 + 140, PIXELSIZE, PIXELSIZE);
+    }
+    
+    //updown
+    g.setColor(Color.white);
+    g.setFont(font);
+    g.drawString(updown, (BOARDWIDTH - metrics.stringWidth(updown)) / 2 , BOARDHEIGHT / 2 + 220);
+    
+}
+
 
     private void printScore(Graphics g) {
         int intScore_1P = snake.getScore();

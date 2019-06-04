@@ -13,6 +13,7 @@ public class Collisions {
     private ArrayList<Poison> poison = new ArrayList<Poison>();
     private boolean fstPlayerWin = false;
     private boolean sndPlayerWin = false;
+    private boolean check = false;
 
     private int distance = 10;
     private int nmScore = 100;
@@ -29,13 +30,13 @@ public class Collisions {
 
     void checkManyFoodCollisions(int widthNum, int heightNum, int PIXELSIZE) {
     	if(fstPlayerWin && !sndPlayerWin) {
-    	int count = 0;
+    
 	    	for(int i = 0; i < heightNum; i++) {
 	            for(int j = 0; j < widthNum; j++) {
 
 	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, distance + 1))
 	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, distance + 1))) {
-	            		count++;
+	            		
 	            		// Add score
 	                    snake1.setScore(snake1.getScore() + fvScore);
 	            		if(food.foodPosition[i][j] == 1) {
@@ -53,8 +54,7 @@ public class Collisions {
 
 	            	if ((proximity(snake2.getSnakeX(0), j * PIXELSIZE, distance + 1))
 	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, distance + 1))) {
-	            		System.out.println("i: " + (i) * PIXELSIZE + "  SNAKE Y:" + snake2.getSnakeY(0));
-	            		System.out.println("j: " + (j) * PIXELSIZE + "  SNAKE X:" + snake2.getSnakeX(0));
+	            		
 	            		 // Add score
 	                    snake2.setScore(snake2.getScore() + fvScore);
 	            		if(food.foodPosition[i][j] == 1) {
