@@ -41,7 +41,7 @@ private int nowTime;
 private boolean fstPlayerWin = false;
 private boolean sndPlayerWin = false;
 public static boolean check = false;
-public static boolean check_2 = false;
+
 private boolean fever = true;
 
 // Timer used to record tick times
@@ -85,9 +85,7 @@ protected void paintComponent(Graphics g) {
     if (check) {
         draw(g);
     }
-    if (check && check_2) {
-    	printRanking(g, snake, snake2);
-    }
+   
 }
 
 // Draw our Snake & Food (Called on repaint()).
@@ -192,13 +190,15 @@ void draw(Graphics g) {
     }
     else if(inGame == 0) {
     	feverTime.endGame(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin());
-    	 	 
-    		
+    	inGame = 3;	
+    		 
         //System.out.println("꺄라ㅏ라라라라락 ");
     }
     
-    else if (inGame == 3) {
-    	printRanking(g, snake, snake2);
+    else if (inGame == 3) {    	
+     	  	    	 
+    	printRanking(g);
+    
     }
     
 }
@@ -218,6 +218,7 @@ void initializeGame() {
         snake2.setSnakeX(BOARDWIDTH / 4 * 3);
         snake2.setSnakeY(BOARDHEIGHT / 4 * 3);
     }
+   
     // Start off our snake moving right
     snake.setMovingRight(true);
     snake2.setMovingLeft(true);
@@ -279,10 +280,12 @@ public void actionPerformed(ActionEvent e) {
             inGame = 0;
 
 
-        if (inGame == 0) {
+        if (inGame == 0 || inGame == 3) {
             timer.stop();
         }
+        
     }
+    
     // Repaint or 'render' our screen
     repaint();
 }
@@ -298,7 +301,6 @@ private class Keys extends KeyAdapter {
         if (startEvent == KeyEvent.VK_ENTER) {
             Board.check = true;
         }
-        
 
         if ((key == KeyEvent.VK_LEFT) && (!snake.isMovingRight())) {
             snake.setMovingLeft(true);
@@ -348,7 +350,7 @@ private class Keys extends KeyAdapter {
             snake2.setMovingLeft(false);
         }
 
-        if ((key == KeyEvent.VK_ENTER) && (((inGame == 0) || (inGame ==3)))) {
+        if ((key == KeyEvent.VK_ENTER) && ((inGame == 0) || (inGame ==3))) {
 
             inGame = 1;
 
@@ -371,11 +373,34 @@ private class Keys extends KeyAdapter {
             snake.setScore(0);
             snake2.setScore(0);
             
-            fever = true;
+            // Start off our snake moving right
+            snake.setMovingRight(true);
+            snake2.setMovingLeft(true);
             
-            check_2 = false;
-
-            initializeGame();
+            fever = true;
+            timer.restart();
+            
+        }
+        
+        if ((key == KeyEvent.VK_SPACE) && ((inGame == 0) || (inGame == 3))) {
+        	
+        	inGame = 3;
+        	
+        	int intScore_1P = snake.getScore();
+       	    int intScore_2P = snake2.getScore();
+       	    String name_1P = snake.getName();
+       	    String name_2P = snake2.getName();
+            
+            
+         	if(collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false) {
+          	    rk.addScore(name_1P, intScore_1P);
+         	 }
+         	else if(collision.getFstPlayerWin() == false && collision.getSndPlayerWin() == true) {
+          		rk.addScore(name_2P, intScore_2P);
+         	}
+         	 System.out.print(rk.getHighscoreString());
+         	 initializeGame();
+         	
         }
               
     }
@@ -426,25 +451,13 @@ private class Keys extends KeyAdapter {
 
     }
     
-    private void printRanking(Graphics g, Snake sn_1, Snake sn_2) {
+    private void printRanking(Graphics g) {
     	
-    	int intScore_1P = sn_1.getScore();
-   	    int intScore_2P = sn_2.getScore();
-   	    String name_1P = sn_1.getName();
-   	    String name_2P = sn_2.getName();
-        
-        
-     	if(collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false) {
-      	    rk.addScore(name_1P, intScore_1P);
-     	 }
-     	else if(collision.getFstPlayerWin() == false && collision.getSndPlayerWin() == true) {
-      		rk.addScore(name_2P, intScore_2P);
-     	}
     	
     	Font font = new Font("Times New Roman", Font.BOLD, 30);
         FontMetrics metrics = getFontMetrics(font);
         int height = BOARDHEIGHT / 15;
-        String space = "               ";
+        int maxRank = 10;
         String restart = "Press 'Enter' to restart!";
 
         // Set the color of the text to red, and set the font
@@ -452,18 +465,18 @@ private class Keys extends KeyAdapter {
         g.setFont(font);
         
         
-        for (int i = 1; i < 10; i += 2) {
-        	g.drawString( i +". " + rk.getScores().get(i - 1).getName() + space +
-        rk.getScores().get(i - 1).getScore(), 50, height * i + height);
+        for (int i = 1; i < maxRank; i += 2) {
+        	g.drawString( i +". " + rk.getScores().get(i - 1).getName(), 50, height * i + height);
+        	g.drawString( "" + rk.getScores().get(i - 1).getScore(), 250, height * i + height);
         }
-        for (int i = 2; i < 11; i += 2) {
-        	g.drawString( i +". " + rk.getScores().get(i - 1).getName() + space +
-        rk.getScores().get(i - 1).getScore(), 415, height * i);
+        for (int i = 2; i <= maxRank; i += 2) {
+        	g.drawString( i +". " + rk.getScores().get(i - 1).getName(), 415, height * i);
+        	g.drawString( "" + rk.getScores().get(i - 1).getScore(), 615, height * i);
+        	
         }
         
         g.drawString(restart , (BOARDWIDTH - metrics.stringWidth(String.valueOf(restart))) / 2 , height * 13);      
         
-        System.out.print(rk.getHighscoreString());
         
     }
 

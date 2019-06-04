@@ -134,6 +134,7 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
     String fstPlayer = "First Player";
     String sndPlayer = "Second Player";
     String score = "Score: ";
+    String rank = "Press 'Space' to view Rankings";
 
     // Create a new font instance
     Font font = new Font("Times New Roman", Font.BOLD, 25);
@@ -173,6 +174,8 @@ void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, 
         g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(drawMessage)) / 2,
                 BOARDHEIGHT / 2 + 20);
     }
+    
+    g.drawString(rank , (BOARDWIDTH - metrics.stringWidth(String.valueOf(rank))) / 2 , BOARDHEIGHT / 10 * 9); 
 
     //System.out.println("Game Ended");
 
