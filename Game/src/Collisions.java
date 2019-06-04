@@ -74,6 +74,8 @@ public class Collisions {
 
             System.out.println("intersection");
             // Add a 'joint' to our snake
+            for(int i = 0; i < 5; i++)
+            	snake1.setSnakeX(snake1.getJoints()-1 + i, snake1.getSnakeX(snake1.getJoints() - 3));
             snake1.setJoints(snake1.getJoints() + 5);
             // Add score
             snake1.setScore(snake1.getScore() + nmScore);
@@ -85,6 +87,8 @@ public class Collisions {
 
             System.out.println("intersection");
             // Add a 'joint' to our snake
+            for(int i = 0; i < 5; i++)
+            	snake1.setSnakeX(snake1.getJoints()-1 + i, snake1.getSnakeX(snake1.getJoints() - 3));
             snake2.setJoints(snake2.getJoints() + 5);
             // Add score
             snake2.setScore(snake2.getScore() + nmScore);

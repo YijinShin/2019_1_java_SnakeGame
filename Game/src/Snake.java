@@ -32,6 +32,14 @@ public void setSnakeY(int i) {
     y[0] = i;
 }
 
+public void setSnakeX(int i, int num) {
+    x[i] = num;
+}
+
+public void setSnakeY(int i, int num) {
+    y[i] = num;
+}
+
 public boolean isMovingLeft() {
     return movingLeft;
 }
