@@ -128,73 +128,74 @@ public class Collisions {
 
     // Used to check collisions with snake's self and board edges
     int checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
-                                                     // (以��쁽)
+        // (以��쁽)
+// If the snake hits other snake's joints..
+	for (int i = snake2.getJoints(); i > 0; i--) {
+	
+		if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), 5)
+		&& proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), 5)) {
+			System.out.println("asfdjnaovjefakjfsanvkfj");
+			sndPlayerWin = true;
+			return 2;
+		}
+	}
 
-        // If the snake hits other snake's joints..
-        for (int i = snake2.getJoints(); i > 0; i--) {
+	for (int i = snake1.getJoints(); i > 0; i--) {
+	
+		if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), 5)
+		&& proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), 5)) {
+			fstPlayerWin = true;
+			return 2; // then the game ends
+		}
+	}
 
-        	if (proximity(snake1.getSnakeX(0), snake2.getSnakeX(i), distance)
-                    && proximity(snake1.getSnakeY(0), snake2.getSnakeY(i), distance)) {
-        			System.out.println("asfdjnaovjefakjfsanvkfj");
-            		sndPlayerWin = true;
-            		snake2.setScore(snake2.getScore() + snake1.getScore());
-            	return 2;
-            }
-        }
+	return 1;
+}
 
-        for (int i = snake1.getJoints(); i > 0; i--) {
+    
+    void checkWallCollisions(int width, int height) {
+// If the snake intersects with the board edges..
+		if (snake1.getSnakeY(0) >= height) {
+			snake1.setSnakeY(0);
+			snake1.setSnakeX((int) (Math.random() * width));
+		}
+			
+		if (snake1.getSnakeY(0) < 0) {
+			snake1.setSnakeY(height);
+			snake1.setSnakeX((int) (Math.random() * width));
+		}
+		
+		if (snake1.getSnakeX(0) >= width) {
+			snake1.setSnakeX(0);
+			snake1.setSnakeY((int) (Math.random() * height));
+		}
+		
+		if (snake1.getSnakeX(0) < 0) {
+			snake1.setSnakeX(width);
+			snake1.setSnakeY((int) (Math.random() * height));
+		}
+		
+		if (snake2.getSnakeY(0) >= height) {
+			snake2.setSnakeY(0);
+			snake2.setSnakeX((int) (Math.random() * width));
+		}
+		
+		if (snake2.getSnakeY(0) < 0) {
+			snake2.setSnakeY(height);
+			snake2.setSnakeX((int) (Math.random() * width));
+		}
+		
+		if (snake2.getSnakeX(0) >= width) {
+			snake2.setSnakeX(0);
+			snake2.setSnakeY((int) (Math.random() * height));
+		}
+		
+		if (snake2.getSnakeX(0) < 0) {
+			snake2.setSnakeX(width);
+			snake2.setSnakeY((int) (Math.random() * height));
+		}
 
-            if (proximity(snake2.getSnakeX(0), snake1.getSnakeX(i), distance)
-                    && proximity(snake2.getSnakeY(0), snake1.getSnakeY(i), distance)) {
-                fstPlayerWin = true;
-                snake1.setScore(snake1.getScore() + snake2.getScore());
-                return 2; // then the game ends
-            }
-        }
-
-        // If the snake intersects with the board edges..
-        if (snake1.getSnakeY(0) >= height) {
-            snake1.setSnakeY(0);
-            snake1.setSnakeX((int) (Math.random() * width));
-        }
-
-        if (snake1.getSnakeY(0) < 0) {
-            snake1.setSnakeY(height);
-            snake1.setSnakeX((int) (Math.random() * width));
-        }
-
-        if (snake1.getSnakeX(0) >= width) {
-            snake1.setSnakeX(0);
-            snake1.setSnakeY((int) (Math.random() * height));
-        }
-
-        if (snake1.getSnakeX(0) < 0) {
-            snake1.setSnakeX(width);
-            snake1.setSnakeY((int) (Math.random() * height));
-        }
-
-        if (snake2.getSnakeY(0) >= height) {
-            snake2.setSnakeY(0);
-            snake2.setSnakeX((int) (Math.random() * width));
-        }
-
-        if (snake2.getSnakeY(0) < 0) {
-            snake2.setSnakeY(height);
-            snake2.setSnakeX((int) (Math.random() * width));
-        }
-
-        if (snake2.getSnakeX(0) >= width) {
-            snake2.setSnakeX(0);
-            snake2.setSnakeY((int) (Math.random() * height));
-        }
-
-        if (snake2.getSnakeX(0) < 0) {
-            snake2.setSnakeX(width);
-            snake2.setSnakeY((int) (Math.random() * height));
-        }
-
-        return 1;
-    }
+	}
 
     private boolean proximity(int a, int b, int closeness) {
         return Math.abs((long) a - b) <= closeness;

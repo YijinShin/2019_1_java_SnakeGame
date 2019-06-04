@@ -260,6 +260,7 @@ public void actionPerformed(ActionEvent e) {
         else if(checkIndexPosion != -1)
             relocation(poison, checkIndexPosion);
 
+        collision.checkWallCollisions(BOARDWIDTH, BOARDHEIGHT); 
 
         snake.move();
         snake2.move();
@@ -271,6 +272,7 @@ public void actionPerformed(ActionEvent e) {
     }
     else if (inGame == 2) {
     	//inGame = 여기 뭔가 들어가
+        collision.checkWallCollisions(BOARDWIDTH, BOARDHEIGHT); 
 
     	if(collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false)
     		snake.move();
