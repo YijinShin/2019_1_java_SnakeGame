@@ -98,27 +98,24 @@ public class Collisions {
                 System.out.println("intersection");
                 // Add a 'joint' to our snake
                 snake1.setJoints(snake1.getJoints() - 1);
-                if (snake1.getJoints() < 1) {
+                if (snake1.getJoints() < 1) 
                     sndPlayerWin = true;
-                    return 0;
-                }
-                // Create new food
-                relocation(poison, i);
+                return i;
+
             } else if ((proximity(snake2.getSnakeX(0), poison.get(i).getPoisonX(), 10))
                     && (proximity(snake2.getSnakeY(0), poison.get(i).getPoisonY(), 10))) {
 
                 System.out.println("intersection");
                 // Add a 'joint' to our snake
                 snake2.setJoints(snake2.getJoints() - 1);
-                if (snake2.getJoints() < 1) {
+                if (snake2.getJoints() < 1) 
                     sndPlayerWin = true;
-                    return 0;
-                }
-                // Create new food
-                relocation(poison, i);
+                return i;
+                
+                
             }
         }
-        return 1;
+        return -1;
     }
 
     // Used to check collisions with snake's self and board edges
@@ -211,12 +208,4 @@ public class Collisions {
     	this.sndPlayerWin = sndPlayerWin;
     }
 
-    public void relocation(ArrayList<Poison> poison, int collidePoisonNum) {
-        Poison addpoison = new Poison();
-        poison.add(addpoison);
-        poison.get(collidePoisonNum).createPoison();
-        for (int i = collidePoisonNum; i < poison.size(); i++) {
-            poison.get(i).createPoison();
-        }
-    }
 }

@@ -1,4 +1,7 @@
 package Game.src;
+
+import java.util.ArrayList;
+
 public class Poison {
 	
 private Snake snake = new Snake();
@@ -25,6 +28,8 @@ public void createPoison() {
         createPoison();
     }
 }
+
+
 
 public int getPoisonX() {
 

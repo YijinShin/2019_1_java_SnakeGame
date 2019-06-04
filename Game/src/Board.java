@@ -33,6 +33,8 @@ private final static int PIXELSIZE = 10;
 private final static int TOTALPIXELS = (BOARDWIDTH * BOARDHEIGHT)
         / (PIXELSIZE * PIXELSIZE);
 
+
+
 // Check to see if the game is running
 private int inGame = 1;
 private int oldTime;
@@ -241,9 +243,11 @@ void initializeGame() {
 public void actionPerformed(ActionEvent e) {
     if (inGame == 1) {
 
-        collision.checkFoodCollisions();	// �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
-        collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
-        inGame=collision.checkPoisonCollisions();	// �뜦�� �궗怨쇱� 遺��뵬移섎뒗 吏�(以��쁽)
+        collision.checkFoodCollisions();	
+        collision.checkPoisonCollisions();	
+        int checkIndexPosion = collision.checkPoisonCollisions();
+        if(checkIndexPosion != -1)
+            relocation(poison, checkIndexPosion);
 
         inGame = collision.checkCollisions(BOARDWIDTH, BOARDHEIGHT); // 諭��겮由� 遺��뵬移섎뒗(以��쁽)
 	    // -> 諛붾줈 �쐵�씪�씤�씠 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿 (以��쁽)
@@ -478,6 +482,14 @@ private class Keys extends KeyAdapter {
         g.drawString(restart , (BOARDWIDTH - metrics.stringWidth(String.valueOf(restart))) / 2 , height * 13);      
         
         
+    }
+    public void relocation(ArrayList<Poison> poison, int collidePoisonNum) {
+        Poison addpoison = new Poison();
+        poison.add(addpoison);
+        poison.get(collidePoisonNum).createPoison();
+        for (int i = collidePoisonNum; i < poison.size(); i++) {
+            poison.get(i).createPoison();
+        }
     }
 
 
