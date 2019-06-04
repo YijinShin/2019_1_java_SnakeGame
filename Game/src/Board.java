@@ -71,7 +71,7 @@ public Board() {
     addKeyListener(new Keys());
     setBackground(Color.black);
     setFocusable(true);
-
+    timer = new Timer(speed, this);
     setPreferredSize(new Dimension(BOARDWIDTH, BOARDHEIGHT));
 
     initializeGame();
@@ -240,7 +240,7 @@ void initializeGame() {
     
 
     // set the timer to record our game's speed / make the game move
-    timer = new Timer(speed, this);
+    
     timer.start();
 }
 
