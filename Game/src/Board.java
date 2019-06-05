@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.ArrayList;
@@ -212,7 +214,6 @@ void initializeGame() {
     collision.setFstPlayerWin(false);
     collision.setSndPlayerWin(false);
     
-
     // Create our snake's body
     for (int i = 0; i < snake.getJoints(); i++) {
         snake.setSnakeX(BOARDWIDTH / 4);
@@ -243,13 +244,14 @@ void initializeGame() {
     
 
     // set the timer to record our game's speed / make the game move
-    
+  
     timer.start();
 }
 
 // Run constantly as long as we're in game.
 @Override
 public void actionPerformed(ActionEvent e) {
+
     if (inGame == 1) {
 
         collision.checkFoodCollisions();	
@@ -395,7 +397,6 @@ private class Keys extends KeyAdapter {
             
             fever = true;
             timer.restart();
-            
         }
         
         if ((key == KeyEvent.VK_SPACE) && ((inGame == 0) || (inGame == 3))) {
@@ -614,14 +615,6 @@ private void printScore(Graphics g) {
         }
     }
 
-    public static  boolean getingame() {
-      	 boolean gaming = true;
-      	 if(inGame == 1)
-      		 return gaming;
-      	 else
-      	 return false;
-      	 
-       }
     
 public static int getAllDots() {
     return TOTALPIXELS;

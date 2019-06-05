@@ -25,7 +25,7 @@ public static void main(String[] args) {
             frame.setVisible(true);
         }
     });
-    while(Board.getingame()==true) {
+    while(true) {
     	File gamemusic =new File("fever.wav");
         music.PlaySound(gamemusic);
     }
