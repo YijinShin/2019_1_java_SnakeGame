@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.ArrayList;
@@ -212,7 +214,6 @@ void initializeGame() {
     collision.setFstPlayerWin(false);
     collision.setSndPlayerWin(false);
     
-
     // Create our snake's body
     for (int i = 0; i < snake.getJoints(); i++) {
         snake.setSnakeX(BOARDWIDTH / 4);
@@ -243,13 +244,14 @@ void initializeGame() {
     
 
     // set the timer to record our game's speed / make the game move
-    
+  
     timer.start();
 }
 
 // Run constantly as long as we're in game.
 @Override
 public void actionPerformed(ActionEvent e) {
+
     if (inGame == 1) {
 
         collision.checkFoodCollisions();	
@@ -395,7 +397,6 @@ private class Keys extends KeyAdapter {
             
             fever = true;
             timer.restart();
-            
         }
         
         if ((key == KeyEvent.VK_SPACE) && ((inGame == 0) || (inGame == 3))) {
@@ -507,53 +508,104 @@ void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
 }
 
 
-    private void printScore(Graphics g) {
-        int intScore_1P = snake.getScore();
-        int intScore_2P = snake2.getScore();
+private void printScore(Graphics g) {
+    int intScore_1P = snake.getScore();
+    int intScore_2P = snake2.getScore();
+    String title1 = "1P";
+    String title2 = "2P";
 
-        Font font = new Font("Times New Roman", Font.BOLD, 25);
+    Font font = new Font("Times New Roman", Font.BOLD, 25);
+    Font font2 = new Font("Times New Roman", Font.BOLD, 15);
+    FontMetrics metrics = getFontMetrics(font);
+
+    // Draw the message to the board
+    g.setColor(Color.yellow);
+    g.setFont(font2);
+    g.drawString(title1, (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4, 30);
+    g.setFont(font);
+    g.drawString(String.valueOf(intScore_1P), 
+    		(BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4, 50);
+   
+    g.setColor(Color.green);
+    g.setFont(font2);
+    g.drawString(title2, (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 30);
+    g.setFont(font);
+    g.drawString(String.valueOf(intScore_2P),
+            (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 50);
+}
+
+
+    private void printRanking(Graphics g) {
+    	Font font = new Font("Times New Roman", Font.BOLD, 20);
+    	Font font1 = new Font("Times New Roman", Font.BOLD, 23);
+    	Font font2 = new Font("Times New Roman", Font.BOLD, 40);
+    	Font font3 = new Font("Times New Roman", Font.BOLD, 130);
+    	Font font4 = new Font("Times New Roman", Font.BOLD, 27);
+    	Font font5 = new Font("Times New Roman", Font.BOLD, 50);
         FontMetrics metrics = getFontMetrics(font);
-
-        // Set the color of the text to red, and set the font
+        int height = BOARDHEIGHT / 30;
+        int maxRank = 10;
+        String restart = "Press ENTER to restart!";
+        String title = "♕ HIGHEST SCORE ♕";
+        String line = "-----------------------------------------------";
+        
+        //titleprint
         g.setColor(Color.white);
+        g.setFont(font5);
+        g.drawString(title,(BOARDWIDTH - metrics.stringWidth(title)) / 2 - 160, 150);
+        
+        //graphic squares
+        int fsquare_wid = 80;
+        int fsquare_hei = 190;
+        for(int j = fsquare_hei; j<360; j += 160) {
+        	g.setColor(Color.magenta);
+            for(int i = fsquare_wid; i< 750; i += 70) {
+            	 g.fillRect(i, j, PIXELSIZE, PIXELSIZE);
+            }
+            g.setColor(Color.yellow);
+            for(int i = fsquare_wid + 25; i< 700; i += 70) {
+            	g.fillRect(i, j, PIXELSIZE, PIXELSIZE);
+            }
+            g.setColor(Color.cyan);
+            for(int i = fsquare_wid + 50; i< 700; i += 70) {
+            	g.fillRect(i, j, PIXELSIZE, PIXELSIZE);
+            }
+        }
+        
+        //highest score print
+        g.setColor(Color.white);
+        g.setFont(font3);
+        g.drawString(""+rk.getScores().get(0).getScore(), (BOARDWIDTH - metrics.stringWidth(title)) / 2 - 60, 320);
+        
+        //line print
         g.setFont(font);
-
-        // Draw the message to the board
-        g.drawString(String.valueOf(intScore_1P), 
-        		(BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_1P))) / 4, 50);
-        g.drawString(String.valueOf(intScore_2P),
-                (BOARDWIDTH - metrics.stringWidth(String.valueOf(intScore_2P))) * 3 / 4, 50);
-
+        g.drawString(line, (BOARDWIDTH - metrics.stringWidth(title)) / 2 - 60 , 450);
+        
+        //other scores print
+        int startposition = 465;
+        g.setFont(font2);
+        for (int i = 2; i < 4; i += 1) {
+        	g.drawString( i +".  " + rk.getScores().get(i - 1).getScore(), 320, startposition + height);
+        	startposition = startposition + height + 15;
+        }
+        int startposition2 = 537;
+        g.setFont(font1);
+        for (int i = 4; i < maxRank; i += 1) {
+        	g.drawString( i +".    " + rk.getScores().get(i - 1).getScore(), 339, startposition2 + height);
+        	startposition2 = startposition2 + height;
+        }
+        g.drawString("10.    " + rk.getScores().get(9).getScore(), 327, startposition2 + height);
+        
+        //line print
+        g.setFont(font);
+        g.drawString(line, (BOARDWIDTH - metrics.stringWidth(title)) / 2 - 60 , 745);
+        
+        //restart instruction
+        g.setFont(font4);
+        g.setColor(Color.magenta);
+        g.drawString(restart , (BOARDWIDTH - metrics.stringWidth(String.valueOf(restart))) / 2 - 38 , 415);           
     }
     
-    private void printRanking(Graphics g) {
-    	
-    	
-    	Font font = new Font("Times New Roman", Font.BOLD, 30);
-        FontMetrics metrics = getFontMetrics(font);
-        int height = BOARDHEIGHT / 15;
-        int maxRank = 10;
-        String restart = "Press 'Enter' to restart!";
-
-        // Set the color of the text to red, and set the font
-        g.setColor(Color.white);
-        g.setFont(font);
-        
-        
-        for (int i = 1; i < maxRank; i += 2) {
-        	g.drawString( i +". " + rk.getScores().get(i - 1).getName(), 50, height * i + height);
-        	g.drawString( "" + rk.getScores().get(i - 1).getScore(), 250, height * i + height);
-        }
-        for (int i = 2; i <= maxRank; i += 2) {
-        	g.drawString( i +". " + rk.getScores().get(i - 1).getName(), 415, height * i);
-        	g.drawString( "" + rk.getScores().get(i - 1).getScore(), 615, height * i);
-        	
-        }
-        
-        g.drawString(restart , (BOARDWIDTH - metrics.stringWidth(String.valueOf(restart))) / 2 , height * 13);      
-        
-        
-    }
     public void relocation(ArrayList<Poison> poison, int collidePoisonNum) {
         Poison addpoison = new Poison();
         poison.add(addpoison);
@@ -563,14 +615,6 @@ void startGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT) {
         }
     }
 
-    public static  boolean getingame() {
-      	 boolean gaming = true;
-      	 if(inGame == 1)
-      		 return gaming;
-      	 else
-      	 return false;
-      	 
-       }
     
 public static int getAllDots() {
     return TOTALPIXELS;
