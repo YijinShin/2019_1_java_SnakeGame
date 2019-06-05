@@ -144,7 +144,7 @@ void draw(Graphics g) {
         for(int i = 0; i < BOARDHEIGHT/PIXELSIZE; i++) {
             for(int j = 0; j < BOARDWIDTH/PIXELSIZE; j++) {
             	if(food.foodPosition[i][j] == 1) {
-            		g.setColor(Color.RED);
+            		g.setColor(new Color(255, (255 - 3*j), 0));
             		g.fillRect(i*10, j*10, PIXELSIZE, PIXELSIZE); // food
             	}else {
             		g.setColor(Color.BLACK);
