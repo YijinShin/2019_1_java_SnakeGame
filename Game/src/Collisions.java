@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public class Collisions {
-    // Board�뿉�꽌 留뚮뱺 媛앹껜�뱾 ���옣�븷 private 蹂��닔
+
     private Snake snake1;
     private Snake snake2;
     private Food food;
@@ -19,7 +19,7 @@ public class Collisions {
     private int nmScore = 100;
     private int fvScore = 1;
 
-    // Constructor�쓣 留뚮뱾�븣 snake1, snake2, food, poison 媛앹껜 reference瑜� �쟾�떖�빐以�
+
     public Collisions(Snake snake1, Snake snake2, Food food, ArrayList<Poison> poison) {
         this.snake1 = snake1;
         this.snake2 = snake2;
@@ -131,8 +131,8 @@ public class Collisions {
     }
 
     // Used to check collisions with snake's self and board edges
-    int checkCollisions(int width, int height) { // -> �뿬湲곗꽌 width, height �쐞移� 援щ퀎�빐�꽌 諭� �쐞移� 議곗젙�븯�뒗�뜲 �씠 湲곕뒫 �뵶�뜲濡� 媛��빞�븷 �벏 �닔�젙 �븘�슂�븿
-        // (以��쁽)
+    int checkCollisions(int width, int height) { 
+
 // If the snake hits other snake's joints..
 	for (int i = snake2.getJoints(); i > 0; i--) {
 	

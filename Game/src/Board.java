@@ -59,7 +59,7 @@ private Snake snake = new Snake();
 private Snake snake2 = new Snake();
 private Food food = new Food();
 private ArrayList<Poison> poison = new ArrayList<Poison>();
-// Collision 媛앹껜 (以��쁽)
+
 private Collisions collision = new Collisions(snake, snake2, food, poison);
 private FeverTime feverTime = new FeverTime(food,  BOARDWIDTH, BOARDHEIGHT, PIXELSIZE, snake, snake2);
 
