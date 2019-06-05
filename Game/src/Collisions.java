@@ -37,9 +37,9 @@ public class Collisions {
 	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, distance+2))
 	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, distance +2))) {
 	            		// Add score
-	            		if(food.foodPosition[i][j] == 1) {
+	            		if(food.foodPosition[j][i] == 1) {
 		            		snake1.setScore(snake1.getScore() + fvScore);
-
+		            		snake1.setJoints(snake1.getJoints() + 1);
 		                    food.foodPosition[j][i] = 0;
 	            		}		                    
 
@@ -57,8 +57,9 @@ public class Collisions {
 	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, distance +2))) {
 	            		
 	            		 // Add score
-	            		if(food.foodPosition[i][j] == 1) {
+	            		if(food.foodPosition[j][i] == 1) {
 		                    snake2.setScore(snake2.getScore() + fvScore);
+		                    snake2.setJoints(snake2.getJoints() + 1);
 	            			food.foodPosition[j][i] = 0;
 	            		}
 	            	}

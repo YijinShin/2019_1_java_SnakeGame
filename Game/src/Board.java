@@ -52,7 +52,7 @@ private Timer timer;
 // Used to set game speed, the lower the #, the faster the snake travels
 // which in turn
 // makes the game harder.
-private static int speed = 100;
+private static int speed = 40;
 
 // Instances of our snake & food so we can use their methods
 private Snake snake = new Snake();
@@ -291,7 +291,7 @@ public void actionPerformed(ActionEvent e) {
         int cc = nowTime - oldTime;
         System.out.println("Timer : " + cc );
 
-        if(nowTime - oldTime == 5)
+        if(nowTime - oldTime == 8)
             inGame = 0;
 
 
