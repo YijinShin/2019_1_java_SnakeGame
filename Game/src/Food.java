@@ -32,7 +32,12 @@ public void createManyFoods(int widthNum, int heightNum) {
 
     for(int i = 0; i < heightNum; i++) {
         for(int j = 0; j < widthNum; j++) {
-        	if((i + j)%2 == 0)
+        	int a = (int) (Math.random() * 6 + 1);
+        	int b = (int) (Math.random() * 6 + 1);
+        	int c = (int) (Math.random() * 6 + 1);
+        	int d = (int) (Math.random() * 6 + 1);
+
+        	if((i % a == 3 || i % b == 1 ) && (j % d == 2 || j % d == 4))
         		foodPosition[i][j] = 1;
         	else
         		foodPosition[i][j] = 0;
