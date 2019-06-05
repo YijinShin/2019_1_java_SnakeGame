@@ -52,7 +52,7 @@ private Timer timer;
 // Used to set game speed, the lower the #, the faster the snake travels
 // which in turn
 // makes the game harder.
-private static int speed = 40;
+private static int speed = 100;
 
 // Instances of our snake & food so we can use their methods
 private Snake snake = new Snake();
@@ -138,22 +138,22 @@ void draw(Graphics g) {
     		feverTime.EndFever(g, collision.getFstPlayerWin(), collision.getSndPlayerWin());
     		fever = false;
     	}
-    	
-    	collision.checkManyFoodCollisions(BOARDWIDTH/PIXELSIZE, BOARDHEIGHT/PIXELSIZE,PIXELSIZE);
+    	collision.checkManyFoodCollisions(BOARDWIDTH/PIXELSIZE, BOARDHEIGHT/PIXELSIZE,PIXELSIZE); 	
 
         for(int i = 0; i < BOARDHEIGHT/PIXELSIZE; i++) {
             for(int j = 0; j < BOARDWIDTH/PIXELSIZE; j++) {
             	if(food.foodPosition[i][j] == 1) {
             		g.setColor(new Color(255, (255 - 3*j), 0));
-            		g.fillRect(i*10, j*10, PIXELSIZE, PIXELSIZE); // food
+//            		g.setColor(Color.RED);
+            		g.fillRect((i)*PIXELSIZE, (j)*PIXELSIZE, PIXELSIZE, PIXELSIZE); // food
             	}else {
             		g.setColor(Color.BLACK);
-            		g.fillRect(i*10, j*10, PIXELSIZE, PIXELSIZE); // food
+            		g.fillRect((i)*PIXELSIZE, (j)*PIXELSIZE, PIXELSIZE, PIXELSIZE); // food
 
             	}
             }
         }
-        
+ 
         // Draw scores
         printScore(g);
         

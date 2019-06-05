@@ -17,7 +17,7 @@ public class Collisions {
 
     private int distance = 10;
     private int nmScore = 100;
-    private int fvScore = 1;
+    private int fvScore = 10;
 
 
     public Collisions(Snake snake1, Snake snake2, Food food, ArrayList<Poison> poison) {
@@ -34,14 +34,15 @@ public class Collisions {
 	    	for(int i = 0; i < heightNum; i++) {
 	            for(int j = 0; j < widthNum; j++) {
 
-	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, distance + 1))
-	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, distance + 1))) {
-	            		
+	            	if ((proximity(snake1.getSnakeX(0), j * PIXELSIZE, distance+2))
+	                        && (proximity(snake1.getSnakeY(0), i * PIXELSIZE, distance +2))) {
 	            		// Add score
-	                    snake1.setScore(snake1.getScore() + fvScore);
 	            		if(food.foodPosition[i][j] == 1) {
-	            			food.foodPosition[j][i] = 0;
-	            		}
+		            		snake1.setScore(snake1.getScore() + fvScore);
+
+		                    food.foodPosition[j][i] = 0;
+	            		}		                    
+
 	            	}
 	            }
 	        }
@@ -49,15 +50,15 @@ public class Collisions {
     	}
 
     	else if(!fstPlayerWin && sndPlayerWin) {
-    		for(int i = 0; i < widthNum; i++) {
-	            for(int j = 0; j < heightNum; j++) {
+    		for(int i = 0; i < heightNum; i++) {
+	            for(int j = 0; j < widthNum; j++) {
 
-	            	if ((proximity(snake2.getSnakeX(0), j * PIXELSIZE, distance + 1))
-	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, distance + 1))) {
+	            	if ((proximity(snake2.getSnakeX(0), j * PIXELSIZE, distance +2 ))
+	                        && (proximity(snake2.getSnakeY(0), i * PIXELSIZE, distance +2))) {
 	            		
 	            		 // Add score
-	                    snake2.setScore(snake2.getScore() + fvScore);
 	            		if(food.foodPosition[i][j] == 1) {
+		                    snake2.setScore(snake2.getScore() + fvScore);
 	            			food.foodPosition[j][i] = 0;
 	            		}
 	            	}
