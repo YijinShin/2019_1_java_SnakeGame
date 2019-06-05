@@ -14,7 +14,6 @@ package Game.src;
 	private int joints = 0;
 	
 	private int score = 0;
-	private String nameP = "";
 	
 	public int getSnakeX(int index) {
 	    return x[index];
@@ -87,12 +86,6 @@ package Game.src;
 		score = s;
 	}
 	
-	public String getName() {
-		return nameP;
-	}
-	public void setName(String n) {
-		nameP = n;
-	}
 	
 	public void move() {
 	    for (int i = joints; i > 0; i--) {

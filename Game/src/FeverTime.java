@@ -39,57 +39,99 @@ void EndFever(Graphics g, boolean fstPlayerWin, boolean sndPlayerWin) {	// 留�
 	
     }
 
-void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin) {
+void endGame(Graphics g, int BOARDWIDTH, int BOARDHEIGHT, boolean fstPlayerWin, boolean sndPlayerWin, boolean Ranker) {
 
+	// �씠遺�遺꾩� 蹂대뱶�겢�옒�뒪�뿉�꽌 媛��졇�삩 endGame�엫
     // Create a message telling the player the game is over
     String message = "Game over";
-    String winMessage = "Wins!!";
-    String drawMessage = "Draws!!";
-    String fstPlayer = "First Player";
-    String sndPlayer = "Second Player";
+    String newRecord = "!! NEW RECORD !!";
+    
+    String winsMessage = "♕Wins♕";
+    String drawMessage = "Draws";
+    
+    String fstPlayer = "♕First Player♕ ";
+    String sndPlayer = "♕Second Player♕";
+    String player = "";
+    
     String score = "Score: ";
-    String rank = "Press 'Space' to view Rankings";
+    
+    String line = "------------------------------------------";
+    String nextIntro = "|    press the  ENTER  to restart    |";
+    String rankIntro = "|    press the  Space  to view rankings    |";
+    
+    int finalScore = 0;
+    int score_1P = snake1.getScore();
+    int score_2P = snake2.getScore();
 
     // Create a new font instance
-    Font font = new Font("Times New Roman", Font.BOLD, 25);
-    FontMetrics metrics = getFontMetrics(font);
-
-    // Set the color of the text to red, and set the font
-    g.setColor(Color.red);
-    g.setFont(font);
+    Font normalFont = new Font("Times New Roman", Font.BOLD, 80);
+    Font recordFont = new Font("Times New Roman", Font.BOLD, 50);
+    Font playerFont = new Font("Times New Roman", Font.BOLD, 100);
+    Font nextToFont = new Font("Times New Roman", Font.BOLD, 40);
+    Font rankToFont = new Font("Times New Roman", Font.BOLD, 25);
+    
+    FontMetrics metrics = getFontMetrics(normalFont);
 
     // Draw the message to the board
-    g.drawString(message, (BOARDWIDTH - metrics.stringWidth(message)) / 2,
-            BOARDHEIGHT / 2);
-
     //If first player wins the game
     if (fstPlayerWin == true && sndPlayerWin == false) {    
-    g.drawString(fstPlayer, (BOARDWIDTH - metrics.stringWidth(fstPlayer)) / 2,
-            BOARDHEIGHT / 2 + 40);
-    g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(winMessage)) / 2,
-            BOARDHEIGHT / 2 + 60);
-    g.drawString(score, (BOARDWIDTH - metrics.stringWidth(score)) / 2 - 60, BOARDHEIGHT / 2 + 100);
-    g.drawString(String.valueOf(snake1.getScore()), (BOARDWIDTH - metrics.stringWidth(String.valueOf(snake1.getScore()))) / 2,
-    		 BOARDHEIGHT / 2 + 100);
+    	 g.setColor(Color.yellow);
+    	 g.setFont(playerFont);
+    	 
+    	 player = fstPlayer;
+    	 finalScore = score_1P; 
     }
 
     //if second player wins
-    else if (sndPlayerWin == true && fstPlayerWin == false) {        
-        g.drawString(sndPlayer, (BOARDWIDTH - metrics.stringWidth(sndPlayer)) / 2,
-                BOARDHEIGHT / 2 + 20);
-        g.drawString(winMessage, (BOARDWIDTH - metrics.stringWidth(winMessage)) / 2,
-                BOARDHEIGHT / 2 + 40);
-        g.drawString(score, (BOARDWIDTH - metrics.stringWidth(score)) / 2 - 60, BOARDHEIGHT / 2 + 100);
-        g.drawString(String.valueOf(snake2.getScore()), (BOARDWIDTH - metrics.stringWidth(String.valueOf(snake2.getScore()))) / 2,
-       		 BOARDHEIGHT / 2 + 100);
+    else if (sndPlayerWin == true && fstPlayerWin == false) {      
+    	 g.setColor(Color.GREEN);
+    	 g.setFont(playerFont);
+    	 
+    	 player = sndPlayer;    	    
+    	 finalScore = score_2P;       
         }
 
+    
     else if (fstPlayerWin ==true && sndPlayerWin == true) {    	
-        g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(drawMessage)) / 2,
+        g.drawString(drawMessage, (BOARDWIDTH - metrics.stringWidth(drawMessage) / 2),
                 BOARDHEIGHT / 2 + 20);
     }
+    g.drawString(player, (BOARDWIDTH / 2 - metrics.stringWidth(player) / 2) - 60, 120);
+    g.drawString(winsMessage, (BOARDWIDTH / 2 - metrics.stringWidth(winsMessage) /2) - 20, 220);
     
-    g.drawString(rank , (BOARDWIDTH - metrics.stringWidth(String.valueOf(rank))) / 2 , BOARDHEIGHT / 10 * 9); 
+    
+    //print Score
+    g.setColor(Color.magenta);
+    g.setFont(normalFont);
+    g.drawString(score, (BOARDWIDTH / 2 - metrics.stringWidth(score) / 2) - 90, BOARDHEIGHT / 2 + 100);
+    g.drawString(String.valueOf(finalScore), BOARDWIDTH / 2 - metrics.stringWidth(String.valueOf(finalScore)) / 2 + 90,
+   		 BOARDHEIGHT / 2 + 100);
+    
+   
+    g.setColor(Color.red);
+    g.setFont(recordFont);
+    
+    // if new ranker arrived
+    if (Ranker)
+    	message = newRecord;
+    
+    g.drawString(message, (BOARDWIDTH / 2 - metrics.stringWidth(message) / 2) + 50,
+        	            BOARDHEIGHT / 2);
+    
+    // input instruction
+    g.setColor(Color.magenta);
+    g.setFont(rankToFont);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line) / 2), BOARDHEIGHT / 2 +230);
+    g.drawString(rankIntro, (BOARDWIDTH - metrics.stringWidth(rankIntro) / 2) + 60, BOARDHEIGHT / 2 +250);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line) / 2) , BOARDHEIGHT / 2 + 270);
+    
+    g.setColor(Color.white);
+    g.setFont(nextToFont);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line) / 2) - 80, BOARDHEIGHT / 2 +300);
+    g.drawString(nextIntro, (BOARDWIDTH - metrics.stringWidth(nextIntro) / 2) - 80, BOARDHEIGHT / 2 +330);
+    g.drawString(line, (BOARDWIDTH - metrics.stringWidth(line) / 2) - 80, BOARDHEIGHT / 2 + 360);
+
+    //System.out.println("Game Ended");
 
 }
 

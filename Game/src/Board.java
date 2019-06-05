@@ -44,6 +44,7 @@ private int nowTime;
 
 private boolean fstPlayerWin = false;
 private boolean sndPlayerWin = false;
+private boolean newRanker = false;
 public static boolean check = false;
 
 private boolean fever = true;
@@ -193,8 +194,18 @@ void draw(Graphics g) {
 
     }
     else if(inGame == 0) {
-    	feverTime.endGame(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin());
-    	inGame = 3;	
+    	if (collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false) {
+          	 if (rk.getScores().get(0).getScore() < snake.getScore())
+          		newRanker = true;
+          	}
+          	
+          	if (collision.getFstPlayerWin() == false && collision.getSndPlayerWin() == true) {
+             	 if (rk.getScores().get(0).getScore() < snake2.getScore())
+             		newRanker = true;
+             	}
+          	
+          	feverTime.endGame(g, BOARDWIDTH, BOARDHEIGHT, collision.getFstPlayerWin(), collision.getSndPlayerWin(), newRanker);
+          	inGame = 3;	
     		 
         //System.out.println("꺄라ㅏ라라라라락 ");
     }
@@ -241,10 +252,9 @@ void initializeGame() {
         poison.add(new Poison());
         poison.get(i).createPoison();
     }
-    
+    newRanker = false;
 
-    // set the timer to record our game's speed / make the game move
-  
+    // set the timer to record our game's speed / make the game move  
     timer.start();
 }
 
@@ -405,8 +415,8 @@ private class Keys extends KeyAdapter {
         	
         	int intScore_1P = snake.getScore();
        	    int intScore_2P = snake2.getScore();
-       	    String name_1P = snake.getName();
-       	    String name_2P = snake2.getName();
+       	    String name_1P = "";
+       	    String name_2P = "";
             
             
          	if(collision.getFstPlayerWin() == true && collision.getSndPlayerWin() == false) {
@@ -575,7 +585,7 @@ private void printScore(Graphics g) {
         //highest score print
         g.setColor(Color.white);
         g.setFont(font3);
-        g.drawString(""+rk.getScores().get(0).getScore(), (BOARDWIDTH - metrics.stringWidth(title)) / 2 - 60, 320);
+        g.drawString(""+rk.getScores().get(0).getScore(), (BOARDWIDTH - metrics.stringWidth(title)) / 2 - 30, 320);
         
         //line print
         g.setFont(font);
